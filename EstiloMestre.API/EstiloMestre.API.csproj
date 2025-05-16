@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\src\Backend\EstiloMestre.Application\EstiloMestre.Application.csproj" />
+      <ProjectReference Include="..\src\Backend\EstiloMestre.Domain\EstiloMestre.Domain.csproj" />
+      <ProjectReference Include="..\src\Backend\EstiloMestre.Infrastructure\EstiloMestre.Infrastructure.csproj" />
+      <ProjectReference Include="..\src\Shared\EstiloMestre.Communication\EstiloMestre.Communication.csproj" />
+      <ProjectReference Include="..\src\Shared\EstiloMestre.Exceptions\EstiloMestre.Exceptions.csproj" />
+    </ItemGroup>
+
+</Project>

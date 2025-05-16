@@ -1,9 +1,10 @@
 using EstiloMestre.Domain.Entities;
 using EstiloMestre.Domain.Repositories.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace EstiloMestre.Infrastructure.DataAccess.Repositories;
 
-public class UserRepository : IUserWriteOnlyRepository
+public class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
 {
     private readonly EstiloMestreDbContext _context;
 
@@ -11,7 +12,10 @@ public class UserRepository : IUserWriteOnlyRepository
 
 
     public async Task Add(User user) => await _context.Users.AddAsync(user);
+
+
+    public async Task<bool> ExistActiveUserWithEmail(string email)
+    {
+        return await _context.Users.AnyAsync(u => u.Email.Equals(email) && u.Active);
+    }
 }
-
-
-//falta adicionar string de conexão do banco atual e tentar persistir um 'User'

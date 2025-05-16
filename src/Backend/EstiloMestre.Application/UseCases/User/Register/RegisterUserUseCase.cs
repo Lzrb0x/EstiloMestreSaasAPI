@@ -5,20 +5,24 @@ using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Cryptography;
 using EstiloMestre.Exceptions.ExceptionsBase;
+using FluentValidation.Results;
 
 namespace EstiloMestre.Application.UseCases.User.Register;
 
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
-    private readonly IUserWriteOnlyRepository _repository;
+    private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+    private readonly IUserReadOnlyRepository _readOnlyRepository;
     private readonly IUnitOfWork _uof;
     private readonly IMapper _mapper;
     private readonly IPasswordEncripter _passwordEncripter;
 
     public RegisterUserUseCase(
-        IUserWriteOnlyRepository repository, IUnitOfWork uof, IMapper mapper, IPasswordEncripter passwordEncripter)
+        IUserWriteOnlyRepository writeOnlyRepository,
+        IUserReadOnlyRepository readOnlyRepository, IUnitOfWork uof, IMapper mapper, IPasswordEncripter passwordEncripter)
     {
-        _repository = repository;
+        _writeOnlyRepository = writeOnlyRepository;
+        _readOnlyRepository = readOnlyRepository;
         _uof = uof;
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
@@ -32,26 +36,28 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         user.Password = _passwordEncripter.Encrypt(user.Password);
         user.UserIdentifier = Guid.NewGuid();
 
-        await _repository.Add(user);
+        await _writeOnlyRepository.Add(user);
         await _uof.Commit();
 
 
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name,
-            Tokens = new ResponseTokensJson
-            {
-                AccessToken = string.Empty 
-            }
+            Name = user.Name, Tokens = new ResponseTokensJson { AccessToken = string.Empty }
         };
     }
 
-    private static async Task ValidateRequest(RequestRegisterUserJson request)
+    private async Task ValidateRequest(RequestRegisterUserJson request)
     {
         var validator = new RegisterUserValidator();
         var result = await validator.ValidateAsync(request);
 
-        if (result.IsValid == false)
+        var emailAlreadyExists = await _readOnlyRepository.ExistActiveUserWithEmail(request.Email);
+        if (emailAlreadyExists)
+        {
+            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesExceptions.EMAIL_ALREADY_EXISTS));
+        }
+
+        if (!result.IsValid)
         {
             throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
         }

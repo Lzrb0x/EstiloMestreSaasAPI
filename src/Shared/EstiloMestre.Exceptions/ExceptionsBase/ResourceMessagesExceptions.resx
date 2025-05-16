@@ -36,4 +36,7 @@
     <data name="UNKNOW_EXCEPTION" xml:space="preserve">
         <value>Unknow Exception. </value>
     </data>
+    <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
+        <value>Email already exist.</value>
+    </data>
 </root>

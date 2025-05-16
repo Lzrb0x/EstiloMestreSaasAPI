@@ -19,7 +19,6 @@ public static class DependencyInjectionExtension
         AddRepositories(services);
         AddPasswordEncripter(services, config);
         AddDbContext(services, config);
-        
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -27,6 +26,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+        services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)
@@ -39,8 +39,7 @@ public static class DependencyInjectionExtension
     private static void AddPasswordEncripter(IServiceCollection services, IConfiguration config)
     {
         var additionalKey = config.GetValue<string>("Settings:Password:AdditionalKey");
-        
-        services.AddScoped<IPasswordEncripter>(_ => new Sha512PasswordEncripter(additionalKey!));
 
+        services.AddScoped<IPasswordEncripter>(_ => new Sha512PasswordEncripter(additionalKey!));
     }
 }

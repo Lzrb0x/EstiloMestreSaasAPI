@@ -1,3 +1,4 @@
+using System.Reflection;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Cryptography;
@@ -5,6 +6,7 @@ using EstiloMestre.Infrastructure.DataAccess;
 using EstiloMestre.Infrastructure.DataAccess.Repositories;
 using EstiloMestre.Infrastructure.Extensions;
 using EstiloMestre.Infrastructure.Security.Cryptography;
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +21,7 @@ public static class DependencyInjectionExtension
         AddRepositories(services);
         AddPasswordEncripter(services, config);
         AddDbContext(services, config);
+        AddFluentMigrator(services, config);
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -34,6 +37,17 @@ public static class DependencyInjectionExtension
         var connectionString = config.ConnectionString();
         var serverVersion = new MySqlServerVersion(new Version(9, 3, 0));
         services.AddDbContext<EstiloMestreDbContext>(dbOptions => { dbOptions.UseMySql(connectionString, serverVersion); });
+    }
+
+    private static void AddFluentMigrator(IServiceCollection services, IConfiguration config)
+    {
+        var connectionString = config.ConnectionString();
+        services.AddFluentMigratorCore().ConfigureRunner(runner =>
+        {
+            runner.AddMySql5()
+                .WithGlobalConnectionString(connectionString)
+                .ScanIn(Assembly.Load("EstiloMestre.Infrastructure")).For.All();
+        });
     }
 
     private static void AddPasswordEncripter(IServiceCollection services, IConfiguration config)

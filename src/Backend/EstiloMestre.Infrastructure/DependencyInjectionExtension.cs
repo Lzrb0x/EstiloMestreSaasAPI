@@ -2,10 +2,15 @@ using System.Reflection;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Cryptography;
+using EstiloMestre.Domain.Security.Tokens;
+using EstiloMestre.Domain.Services.ILoggedUser;
 using EstiloMestre.Infrastructure.DataAccess;
 using EstiloMestre.Infrastructure.DataAccess.Repositories;
 using EstiloMestre.Infrastructure.Extensions;
 using EstiloMestre.Infrastructure.Security.Cryptography;
+using EstiloMestre.Infrastructure.Security.Tokens.Access.Generator;
+using EstiloMestre.Infrastructure.Security.Tokens.Access.Validator;
+using EstiloMestre.Infrastructure.Services.LoggedUser;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +27,8 @@ public static class DependencyInjectionExtension
         AddPasswordEncripter(services, config);
         AddDbContext(services, config);
         AddFluentMigrator(services, config);
+        AddTokens(services, config);
+        AddLoggedUser(services);
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -50,10 +57,24 @@ public static class DependencyInjectionExtension
         });
     }
 
+    private static void AddTokens(IServiceCollection services, IConfiguration config)
+    {
+        var expirationTime = config.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
+        var signingKey = config.GetValue<string>("Settings:Jwt:SigningKey");
+        
+        services.AddScoped<IAccessTokenGenerator>(_ => new JwtTokenGenerator(expirationTime, signingKey!));
+        services.AddScoped<IAccessTokenValidator>(_ => new JwtTokenValidator(signingKey!));
+    }
+
     private static void AddPasswordEncripter(IServiceCollection services, IConfiguration config)
     {
         var additionalKey = config.GetValue<string>("Settings:Password:AdditionalKey");
 
         services.AddScoped<IPasswordEncripter>(_ => new Sha512PasswordEncripter(additionalKey!));
+    }
+    
+    private static void AddLoggedUser(IServiceCollection services)
+    {
+        services.AddScoped<ILoggedUser, LoggedUser>();
     }
 }

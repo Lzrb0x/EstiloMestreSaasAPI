@@ -25,6 +25,12 @@ public class ExceptionFilter : IExceptionFilter
                 context.Result = new BadRequestObjectResult(new ResponseErrorJson(contextException.ErrorsMessages));
                 break;
             }
+            case InvalidLoginException:
+            {
+                context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
+                break;
+            }
         }
     }
 

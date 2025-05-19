@@ -4,6 +4,7 @@ using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Cryptography;
+using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
@@ -16,16 +17,19 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUnitOfWork _uof;
     private readonly IMapper _mapper;
     private readonly IPasswordEncripter _passwordEncripter;
+    private readonly IAccessTokenGenerator _tokenGenerator;
 
     public RegisterUserUseCase(
-        IUserWriteOnlyRepository writeOnlyRepository,
-        IUserReadOnlyRepository readOnlyRepository, IUnitOfWork uof, IMapper mapper, IPasswordEncripter passwordEncripter)
+        IUserWriteOnlyRepository writeOnlyRepository, IUserReadOnlyRepository readOnlyRepository, IUnitOfWork uof, IMapper mapper,
+        IPasswordEncripter passwordEncripter, IAccessTokenGenerator tokenGenerator
+    )
     {
         _writeOnlyRepository = writeOnlyRepository;
         _readOnlyRepository = readOnlyRepository;
         _uof = uof;
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
+        _tokenGenerator = tokenGenerator;
     }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
@@ -33,16 +37,15 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         await ValidateRequest(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
-        user.Password = _passwordEncripter.Encrypt(user.Password);
+        user.Password = _passwordEncripter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();
 
         await _writeOnlyRepository.Add(user);
         await _uof.Commit();
 
-
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name, Tokens = new ResponseTokensJson { AccessToken = string.Empty }
+            Name = user.Name, Tokens = new ResponseTokensJson { AccessToken = _tokenGenerator.Generate(user.UserIdentifier) }
         };
     }
 

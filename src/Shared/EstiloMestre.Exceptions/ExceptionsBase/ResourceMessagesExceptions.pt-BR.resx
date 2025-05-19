@@ -39,4 +39,13 @@
     <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
         <value>Email já cadastrado.</value>
     </data>
+    <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+        <value>Email ou senha inválido.</value>
+    </data>
+    <data name="NO_TOKEN" xml:space="preserve">
+        <value>Token não recebido.</value>
+    </data>
+    <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
+        <value>Usuario sem permissão para acessar o recurso.</value>
+    </data>
 </root>

@@ -8,8 +8,7 @@ public class EstiloMestreDbContext : DbContext
     public EstiloMestreDbContext(DbContextOptions<EstiloMestreDbContext> options) : base(options) { }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<Owner> Owners { get; set; }
-    public DbSet<Barbershops> Barbershops { get; set; }
+    public DbSet<Barbershop> Barbershops { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

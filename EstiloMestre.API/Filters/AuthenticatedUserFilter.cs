@@ -11,9 +11,9 @@ namespace EstiloMestre.API.Filters;
 public class AuthenticatedUserFilter : IAsyncAuthorizationFilter
 {
     private readonly IAccessTokenValidator _tokenValidator;
-    private readonly IUserReadOnlyRepository _repository;
+    private readonly IUserRepository _repository;
 
-    public AuthenticatedUserFilter(IAccessTokenValidator tokenValidator, IUserReadOnlyRepository repository)
+    public AuthenticatedUserFilter(IAccessTokenValidator tokenValidator, IUserRepository repository)
     {
         _tokenValidator = tokenValidator;
         _repository = repository;

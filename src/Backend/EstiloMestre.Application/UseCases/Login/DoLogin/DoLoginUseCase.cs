@@ -9,16 +9,15 @@ namespace EstiloMestre.Application.UseCases.Login.DoLogin;
 
 public class DoLoginUseCase : IDoLoginUseCase
 {
-    private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IPasswordEncripter _passwordEncripter;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
 
     public DoLoginUseCase(
-        IUserReadOnlyRepository userReadOnlyRepository, IPasswordEncripter passwordEncripter,
-        IAccessTokenGenerator accessTokenGenerator
+        IUserRepository userRepository, IPasswordEncripter passwordEncripter, IAccessTokenGenerator accessTokenGenerator
     )
     {
-        _userReadOnlyRepository = userReadOnlyRepository;
+        _userRepository = userRepository;
         _passwordEncripter = passwordEncripter;
         _accessTokenGenerator = accessTokenGenerator;
     }
@@ -28,7 +27,7 @@ public class DoLoginUseCase : IDoLoginUseCase
     {
         var encryptedPassword = _passwordEncripter.Encrypt(request.Password!);
 
-        var user = await _userReadOnlyRepository.GetByEmailAndPassword(request.Email, encryptedPassword)
+        var user = await _userRepository.GetByEmailAndPassword(request.Email, encryptedPassword)
                    ?? throw new InvalidLoginException();
 
         return new ResponseRegisteredUserJson

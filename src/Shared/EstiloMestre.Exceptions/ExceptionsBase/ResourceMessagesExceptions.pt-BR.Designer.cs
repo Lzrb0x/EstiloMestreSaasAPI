@@ -104,5 +104,17 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("USER_WITHOUT_PERMISSION_ACCESS_RESOURCE", resourceCulture);
             }
         }
+        
+        public static string BARBERSHOP_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("BARBERSHOP_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        public static string ADDRESS_EMPTY {
+            get {
+                return ResourceManager.GetString("ADDRESS_EMPTY", resourceCulture);
+            }
+        }
     }
 }

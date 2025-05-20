@@ -1,5 +1,6 @@
 using System.Reflection;
 using EstiloMestre.Domain.Repositories;
+using EstiloMestre.Domain.Repositories.Barbershop;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Cryptography;
 using EstiloMestre.Domain.Security.Tokens;
@@ -36,6 +37,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IBarbershopRepository, BarbershopRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)

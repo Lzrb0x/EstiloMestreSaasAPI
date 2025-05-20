@@ -26,4 +26,11 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users.AsNoTracking().AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
     }
+
+    public async Task<User> GetById(long userId)
+    {
+        return await _context.Users.FirstAsync(u => u.Id.Equals(userId));
+    }
+
+    public void Update(User user) => _context.Users.Update(user);
 }

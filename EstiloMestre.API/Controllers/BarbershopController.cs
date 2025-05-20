@@ -1,0 +1,22 @@
+using EstiloMestre.API.Attributes;
+using EstiloMestre.Application.UseCases.Barbershop;
+using EstiloMestre.Communication.Requests;
+using EstiloMestre.Communication.Responses;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EstiloMestre.API.Controllers;
+
+[AuthenticatedUser]
+public class BarbershopController : EstiloMestreBaseController
+{
+    [HttpPost]
+    [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateBarbershop(
+        [FromServices] ICreateBarbershopUseCase useCase, [FromBody] RequestCreateBarbershopJson request
+    )
+    {
+        var barbershopRegistered = await useCase.Execute(request);
+        return Created(string.Empty, barbershopRegistered);
+    }
+}

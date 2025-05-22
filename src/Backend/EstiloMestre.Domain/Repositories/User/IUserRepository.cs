@@ -6,7 +6,4 @@ public interface IUserRepository
     Task<bool> ExistActiveUserWithEmail(string email);
     Task<Entities.User?> GetByEmailAndPassword(string? email, string password);
     Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier);
-    Task<Entities.User> GetById(long userId);
-    
-    void Update(Entities.User user);
 }

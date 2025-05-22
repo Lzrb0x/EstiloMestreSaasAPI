@@ -19,7 +19,10 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IAccessTokenGenerator _tokenGenerator;
 
     public RegisterUserUseCase(
-        IUserRepository repository, IUnitOfWork uof, IMapper mapper, IPasswordEncripter passwordEncripter,
+        IUserRepository repository,
+        IUnitOfWork uof,
+        IMapper mapper,
+        IPasswordEncripter passwordEncripter,
         IAccessTokenGenerator tokenGenerator
     )
     {
@@ -43,7 +46,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         return new ResponseRegisteredUserJson
         {
-            Name = user.Name, Tokens = new ResponseTokensJson
+            Name = user.Name,
+            Tokens = new ResponseTokensJson
             {
                 AccessToken = _tokenGenerator.Generate(user.UserIdentifier)
             }

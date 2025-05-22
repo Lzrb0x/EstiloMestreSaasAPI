@@ -11,8 +11,4 @@ public class User : EntityBase
     public string Password { get; set; } = string.Empty;
 
     public string? Phone { get; set; } = string.Empty;
-
-    public bool IsOwner { get; set; }
-    
-    public IList<Barbershop> Barbershops { get; set; } = [];
 }

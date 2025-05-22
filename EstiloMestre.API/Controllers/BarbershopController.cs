@@ -13,7 +13,7 @@ public class BarbershopController : EstiloMestreBaseController
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateBarbershop(
-        [FromServices] ICreateBarbershopUseCase useCase, [FromBody] RequestCreateBarbershopJson request
+        [FromServices] ICreateBarbershopUseCase useCase, [FromBody] RequestRegisterBarbershopJson request
     )
     {
         var barbershopRegistered = await useCase.Execute(request);

@@ -19,18 +19,13 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> GetByEmailAndPassword(string? email, string password)
     {
-        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
+        return await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
     }
 
     public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier)
     {
         return await _context.Users.AsNoTracking().AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
     }
-
-    public async Task<User> GetById(long userId)
-    {
-        return await _context.Users.FirstAsync(u => u.Id.Equals(userId));
-    }
-
-    public void Update(User user) => _context.Users.Update(user);
 }

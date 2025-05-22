@@ -12,13 +12,15 @@ public class Version0000001 : VersionBase
             .WithColumn("Name").AsString(255).NotNullable()
             .WithColumn("Email").AsString(255).NotNullable()
             .WithColumn("Password").AsString(2000).NotNullable()
-            .WithColumn("Phone").AsString(255).NotNullable()
-            .WithColumn("IsOwner").AsBoolean().NotNullable();
-
+            .WithColumn("Phone").AsString(255).NotNullable();
+        
+        CreateTable("Owners")
+            .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_Owner_UserId", "Users", "Id");
+        
         CreateTable("Barbershops")
             .WithColumn("BarbershopName").AsString(255).NotNullable()
             .WithColumn("Address").AsString(255).NotNullable()
             .WithColumn("Phone").AsString(255).Nullable()
-            .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_Barbershop_UserId", "Users", "Id");
+            .WithColumn("OwnerId").AsInt64().NotNullable().ForeignKey("FK_Barbershop_OwnerId", "Owners", "Id");
     }
 }

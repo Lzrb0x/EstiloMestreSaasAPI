@@ -27,17 +27,18 @@ public class AuthenticatedUserFilter : IAsyncAuthorizationFilter
 
             var userIdentifier = _tokenValidator.ValidateAndGetUserIdentifier(token);
             var userExist = await _repository.ExistActiveUserWithIdentifier(userIdentifier);
-            if (!userExist) throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
-        }
-        catch (SecurityTokenExpiredException)
+            if (!userExist)
+                throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+        } catch (SecurityTokenExpiredException)
         {
-            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson("Token is expired") { TokenIsExpired = true });
-        }
-        catch (EstiloMestreException ex)
+            context.Result = new UnauthorizedObjectResult(new ResponseErrorJson("Token is expired")
+            {
+                TokenIsExpired = true
+            });
+        } catch (EstiloMestreException ex)
         {
             context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ex.Message));
-        }
-        catch
+        } catch
         {
             context.Result = new UnauthorizedObjectResult(
                 new ResponseErrorJson(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE));
@@ -48,7 +49,8 @@ public class AuthenticatedUserFilter : IAsyncAuthorizationFilter
     {
         var authentication = context.HttpContext.Request.Headers.Authorization.ToString(); //token
 
-        if (string.IsNullOrWhiteSpace(authentication)) throw new EstiloMestreException(ResourceMessagesExceptions.NO_TOKEN);
+        if (string.IsNullOrWhiteSpace(authentication))
+            throw new EstiloMestreException(ResourceMessagesExceptions.NO_TOKEN);
 
         return authentication["Bearer ".Length..].Trim();
     }

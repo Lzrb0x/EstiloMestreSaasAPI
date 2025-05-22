@@ -6,5 +6,6 @@ namespace EstiloMestre.Domain.Entities;
 public class Owner : EntityBase
 {
     public long UserId { get; set; }
+    public User User { get; set; } = null!;
     public IList<Barbershop> Barbershops { get; set; } = [];
 }

@@ -2,11 +2,11 @@ using EstiloMestre.Communication.Requests;
 using EstiloMestre.Exceptions.ExceptionsBase;
 using FluentValidation;
 
-namespace EstiloMestre.Application.UseCases.Barbershop;
+namespace EstiloMestre.Application.UseCases.Barbershop.Register;
 
-public class CreateBarbershopValidator : AbstractValidator<RequestRegisterBarbershopJson>
+public class RegisterBarbershopValidator : AbstractValidator<RequestRegisterBarbershopJson>
 {
-    public CreateBarbershopValidator()
+    public RegisterBarbershopValidator()
     {
         RuleFor(r => r.BarbershopName).NotEmpty().WithMessage(ResourceMessagesExceptions.BARBERSHOP_NAME_EMPTY);
         RuleFor(r => r.Address).NotEmpty().WithMessage(ResourceMessagesExceptions.ADDRESS_EMPTY);

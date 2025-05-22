@@ -8,9 +8,9 @@ using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Services.ILoggedUser;
 using EstiloMestre.Exceptions.ExceptionsBase;
 
-namespace EstiloMestre.Application.UseCases.Barbershop;
+namespace EstiloMestre.Application.UseCases.Barbershop.Register;
 
-public class CreateBarbershopUseCase : ICreateBarbershopUseCase
+public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
 {
     private readonly IBarbershopRepository _barbershopRepository;
     private readonly IOwnerRepository _ownerRepository;
@@ -18,7 +18,7 @@ public class CreateBarbershopUseCase : ICreateBarbershopUseCase
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public CreateBarbershopUseCase(
+    public RegisterBarbershopUseCase(
         IBarbershopRepository barbershopRepository,
         IOwnerRepository ownerRepository,
         ILoggedUser loggedUser,
@@ -61,7 +61,7 @@ public class CreateBarbershopUseCase : ICreateBarbershopUseCase
 
     private static void ValidateRequest(RequestRegisterBarbershopJson request)
     {
-        var result = new CreateBarbershopValidator().Validate(request);
+        var result = new RegisterBarbershopValidator().Validate(request);
         if (!result.IsValid) throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
     }
 }

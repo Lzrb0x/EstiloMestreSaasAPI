@@ -13,13 +13,18 @@ public class OwnerRepository : IOwnerRepository
         _dbContext = dbContext;
     }
 
+    public async Task Add(Owner owner)
+    {
+        await _dbContext.Owners.AddAsync(owner);
+    }
+
     public async Task<Owner?> GetByUserId(long userId)
     {
         return await _dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId);
     }
 
-    public async Task Add(Owner owner)
+    public async Task<bool> ExistActiveOwnerWithUserId(long userId)
     {
-        await _dbContext.Owners.AddAsync(owner);
+        return await _dbContext.Owners.AnyAsync(o => o.UserId == userId && o.Active);
     }
 }

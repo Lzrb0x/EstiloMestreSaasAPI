@@ -54,4 +54,7 @@
     <data name="ADDRESS_EMPTY" xml:space="preserve">
         <value>Barbershop Address cannot be empty.</value>
     </data>
+    <data name="TOKEN_EXPIRED" xml:space="preserve">
+        <value>Token expired.</value>
+    </data>
 </root>

@@ -24,8 +24,10 @@ public class UserRepository : IUserRepository
             .FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
     }
 
-    public async Task<bool> ExistActiveUserWithIdentifier(Guid userIdentifier)
+    public async Task<User?> ExistActiveUserWithIdentifier(Guid userIdentifier)
     {
-        return await _context.Users.AsNoTracking().AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
+        return await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
     }
 }

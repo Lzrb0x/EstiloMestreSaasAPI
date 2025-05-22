@@ -54,4 +54,7 @@
     <data name="ADDRESS_EMPTY" xml:space="preserve">
         <value>Endereço da barbearia nao pode ser vazio.</value>
     </data>
+    <data name="TOKEN_EXPIRED" xml:space="preserve">
+        <value>Token expirado.</value>
+    </data>
 </root>

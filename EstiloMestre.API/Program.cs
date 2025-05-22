@@ -49,7 +49,7 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenProvider>();
 
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpContextAccessor(); //permite o acesso ao HttpContext em classes de filtros
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 

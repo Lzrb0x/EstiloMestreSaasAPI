@@ -1,4 +1,5 @@
 using EstiloMestre.Communication.Responses;
+using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Exceptions.ExceptionsBase;
@@ -8,16 +9,23 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.API.Filters;
 
-public class AuthenticatedUserFilter : TokenOnRequest, IAsyncAuthorizationFilter
+public class AuthenticatedUserIsOwnerFilter : TokenOnRequest, IAsyncAuthorizationFilter
 {
+    private readonly IOwnerRepository _ownerRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IAccessTokenValidator _tokenValidator;
-    private readonly IUserRepository _repository;
 
-    public AuthenticatedUserFilter(IAccessTokenValidator tokenValidator, IUserRepository repository)
+    public AuthenticatedUserIsOwnerFilter(
+        IAccessTokenValidator tokenValidator,
+        IOwnerRepository ownerRepository,
+        IUserRepository userRepository
+    )
     {
+        _ownerRepository = ownerRepository;
+        _userRepository = userRepository;
         _tokenValidator = tokenValidator;
-        _repository = repository;
     }
+
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
@@ -26,8 +34,12 @@ public class AuthenticatedUserFilter : TokenOnRequest, IAsyncAuthorizationFilter
             var token = Token(context);
 
             var userIdentifier = _tokenValidator.ValidateAndGetUserIdentifier(token);
-            var userExist = await _repository.ExistActiveUserWithIdentifier(userIdentifier);
+            var userExist = await _userRepository.ExistActiveUserWithIdentifier(userIdentifier);
             if (userExist == null)
+                throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+
+            var userIsOwner = await _ownerRepository.ExistActiveOwnerWithUserId(userExist.Id);
+            if (userIsOwner == false)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
         } catch (SecurityTokenExpiredException)
         {

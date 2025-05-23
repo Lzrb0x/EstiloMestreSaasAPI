@@ -1,8 +1,7 @@
+using EstiloMestre.API.Controllers.BaseController;
 using EstiloMestre.Application.UseCases.Owner.Register;
-using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 
 namespace EstiloMestre.API.Controllers;
 

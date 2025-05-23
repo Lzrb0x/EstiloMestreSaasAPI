@@ -1,4 +1,5 @@
 using EstiloMestre.API.Attributes;
+using EstiloMestre.API.Controllers.BaseController;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;

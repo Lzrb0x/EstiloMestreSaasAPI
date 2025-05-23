@@ -1,8 +1,6 @@
-using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Owner;
-using EstiloMestre.Exceptions.ExceptionsBase;
 
 namespace EstiloMestre.Application.UseCases.Owner.Register;
 

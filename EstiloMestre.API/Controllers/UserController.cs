@@ -1,3 +1,4 @@
+using EstiloMestre.API.Controllers.BaseController;
 using EstiloMestre.Application.UseCases.User.Register;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;

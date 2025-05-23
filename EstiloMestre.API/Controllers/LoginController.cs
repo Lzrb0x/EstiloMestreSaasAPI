@@ -1,4 +1,4 @@
-using EstiloMestre.API.Attributes;
+using EstiloMestre.API.Controllers.BaseController;
 using EstiloMestre.Application.UseCases.Login.DoLogin;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;

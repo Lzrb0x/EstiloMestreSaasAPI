@@ -25,6 +25,6 @@ public class OwnerRepository : IOwnerRepository
 
     public async Task<bool> ExistActiveOwnerWithUserId(long userId)
     {
-        return await _dbContext.Owners.AnyAsync(o => o.UserId == userId && o.Active);
+        return await _dbContext.Owners.AsNoTracking().AnyAsync(o => o.UserId == userId && o.Active);
     }
 }

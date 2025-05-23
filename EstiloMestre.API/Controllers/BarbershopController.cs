@@ -1,5 +1,4 @@
 using EstiloMestre.API.Attributes;
-using EstiloMestre.Application.UseCases.Barbershop;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
@@ -14,7 +13,8 @@ public class BarbershopController : EstiloMestreBaseController
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateBarbershop(
-        [FromServices] IRegisterBarbershopUseCase useCase, [FromBody] RequestRegisterBarbershopJson request
+        [FromServices] IRegisterBarbershopUseCase useCase,
+        [FromBody] RequestRegisterBarbershopJson request
     )
     {
         var barbershopRegistered = await useCase.Execute(request);

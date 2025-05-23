@@ -1,4 +1,5 @@
 using AutoMapper;
+using EstiloMestre.Application.UseCases.Owner.Register;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Entities;
@@ -13,7 +14,7 @@ namespace EstiloMestre.Application.UseCases.Barbershop.Register;
 public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
 {
     private readonly IBarbershopRepository _barbershopRepository;
-    private readonly IOwnerRepository _ownerRepository;
+    private readonly IRegisterOwnerUseCase _registerOwnerUseCase;
     private readonly ILoggedUser _loggedUser;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -21,13 +22,14 @@ public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
     public RegisterBarbershopUseCase(
         IBarbershopRepository barbershopRepository,
         IOwnerRepository ownerRepository,
+        IRegisterOwnerUseCase registerOwnerUseCase,
         ILoggedUser loggedUser,
         IUnitOfWork unitOfWork,
         IMapper mapper
     )
     {
         _barbershopRepository = barbershopRepository;
-        _ownerRepository = ownerRepository;
+        _registerOwnerUseCase = registerOwnerUseCase;
         _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -39,23 +41,14 @@ public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
 
         var loggedUser = await _loggedUser.User();
 
-        var owner = await _ownerRepository.GetByUserId(loggedUser.Id);
-        if (owner is null)
-        {
-            owner = new Owner
-            {
-                UserId = loggedUser.Id,
-                Barbershops = []
-            };
-            await _ownerRepository.Add(owner);
-        }
+        var owner = await _registerOwnerUseCase.Execute(loggedUser.Id);
 
         var barbershop = _mapper.Map<Domain.Entities.Barbershop>(request);
-        barbershop.Owner = owner;
+        barbershop.OwnerId = owner.OwnerId;
 
         await _barbershopRepository.Add(barbershop);
         await _unitOfWork.Commit();
-        
+
         return _mapper.Map<ResponseRegisteredBarbershopJson>(barbershop);
     }
 

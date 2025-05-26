@@ -11,6 +11,8 @@ public class EstiloMestreDbContext : DbContext
     
     public DbSet<Owner> Owners { get; set; }
     public DbSet<Barbershop> Barbershops { get; set; }
+    
+    public DbSet<Employee> Employees { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

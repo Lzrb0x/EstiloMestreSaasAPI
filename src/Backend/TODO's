@@ -1,0 +1,12 @@
+
+
+
+
+1) Analyze the best implementation path for employee methods (registration, user relationships, etc.)
+
+2) Refactor the controller and the registrar owner use case. We don't need the user ID in the route parameters,
+ we just get it from the token
+
+3) implement the employee methods(only post for now)
+
+4) Validation, use cases and integration tests for all current methods

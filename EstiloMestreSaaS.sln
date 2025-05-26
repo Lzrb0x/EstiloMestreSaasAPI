@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC19F902-8100-48AD-839E-D3A904754211}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{F7CE9A74-C1DF-424A-B4F8-EAFC6C4C5C09}"
+	ProjectSection(SolutionItems) = preProject
+		src\Backend\TODO's = src\Backend\TODO's
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{4F3B53E5-960D-4E86-9EA6-BD8AF78128C9}"
 EndProject

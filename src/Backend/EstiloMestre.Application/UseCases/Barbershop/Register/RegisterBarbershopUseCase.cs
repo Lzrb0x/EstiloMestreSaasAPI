@@ -2,10 +2,8 @@ using AutoMapper;
 using EstiloMestre.Application.UseCases.Owner.Register;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
-using EstiloMestre.Domain.Entities;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Barbershop;
-using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Services.ILoggedUser;
 using EstiloMestre.Exceptions.ExceptionsBase;
 
@@ -21,7 +19,6 @@ public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
 
     public RegisterBarbershopUseCase(
         IBarbershopRepository barbershopRepository,
-        IOwnerRepository ownerRepository,
         IRegisterOwnerUseCase registerOwnerUseCase,
         ILoggedUser loggedUser,
         IUnitOfWork unitOfWork,

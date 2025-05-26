@@ -9,7 +9,7 @@ public class OwnerController : EstiloMestreBaseController
 {
     [HttpPost]
     [Route("{userId}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseRegisteredOwnerJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterOwner(
         [FromRoute] long userId,

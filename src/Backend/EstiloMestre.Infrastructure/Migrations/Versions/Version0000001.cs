@@ -2,7 +2,7 @@ using FluentMigrator;
 
 namespace EstiloMestre.Infrastructure.Migrations.Versions;
 
-[Migration(1, "create table to save the users information")]
+[Migration(1, "create table version 001")]
 public class Version0000001 : VersionBase
 {
     public override void Up()
@@ -22,5 +22,10 @@ public class Version0000001 : VersionBase
             .WithColumn("Address").AsString(255).NotNullable()
             .WithColumn("Phone").AsString(255).Nullable()
             .WithColumn("OwnerId").AsInt64().NotNullable().ForeignKey("FK_Barbershop_OwnerId", "Owners", "Id");
+        
+        CreateTable("Employees")
+            .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_Employees_UserId", "Users", "Id")
+            .WithColumn("BarberShopId").AsInt64().NotNullable()
+            .ForeignKey("FK_Employee_BarberShopId", "Barbershops", "Id");
     }
 }

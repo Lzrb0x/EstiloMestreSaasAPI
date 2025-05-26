@@ -21,4 +21,5 @@ public class BarbershopController : EstiloMestreBaseController
         var barbershopRegistered = await useCase.Execute(request);
         return Created(string.Empty, barbershopRegistered);
     }
+    
 }

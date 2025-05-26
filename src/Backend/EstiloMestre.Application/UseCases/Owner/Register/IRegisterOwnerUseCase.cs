@@ -5,5 +5,8 @@ namespace EstiloMestre.Application.UseCases.Owner.Register;
 
 public interface IRegisterOwnerUseCase
 {
-    Task<ResponseRegisteredOwnerJson> Execute(long userId);
+    Task<ResponseRegisteredOwnerJson> Execute();
+    
+    
+    
 }

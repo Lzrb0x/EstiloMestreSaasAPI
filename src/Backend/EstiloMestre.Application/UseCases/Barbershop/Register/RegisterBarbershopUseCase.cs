@@ -13,21 +13,18 @@ public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
 {
     private readonly IBarbershopRepository _barbershopRepository;
     private readonly IRegisterOwnerUseCase _registerOwnerUseCase;
-    private readonly ILoggedUser _loggedUser;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public RegisterBarbershopUseCase(
         IBarbershopRepository barbershopRepository,
         IRegisterOwnerUseCase registerOwnerUseCase,
-        ILoggedUser loggedUser,
         IUnitOfWork unitOfWork,
         IMapper mapper
     )
     {
         _barbershopRepository = barbershopRepository;
         _registerOwnerUseCase = registerOwnerUseCase;
-        _loggedUser = loggedUser;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
@@ -36,9 +33,7 @@ public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
     {
         ValidateRequest(request);
 
-        var loggedUser = await _loggedUser.User();
-
-        var owner = await _registerOwnerUseCase.Execute(loggedUser.Id);
+        var owner = await _registerOwnerUseCase.Execute();
 
         var barbershop = _mapper.Map<Domain.Entities.Barbershop>(request);
         barbershop.OwnerId = owner.OwnerId;

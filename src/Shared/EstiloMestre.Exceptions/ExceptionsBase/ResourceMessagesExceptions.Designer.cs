@@ -122,5 +122,29 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("TOKEN_EXPIRED", resourceCulture);
             }
         }
+        
+        public static string BARBERSHOP_ID_NOT_FOUND_IN_ROUTE {
+            get {
+                return ResourceManager.GetString("BARBERSHOP_ID_NOT_FOUND_IN_ROUTE", resourceCulture);
+            }
+        }
+        
+        public static string BARBERSHOP_ID_INVALID_IN_ROUTE {
+            get {
+                return ResourceManager.GetString("BARBERSHOP_ID_INVALID_IN_ROUTE", resourceCulture);
+            }
+        }
+        
+        public static string USER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        public static string EMPLOYEE_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("EMPLOYEE_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
     }
 }

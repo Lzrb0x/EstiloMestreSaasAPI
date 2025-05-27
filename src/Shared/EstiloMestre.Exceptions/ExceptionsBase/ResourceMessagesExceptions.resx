@@ -57,4 +57,16 @@
     <data name="TOKEN_EXPIRED" xml:space="preserve">
         <value>Token expired.</value>
     </data>
+    <data name="BARBERSHOP_ID_NOT_FOUND_IN_ROUTE" xml:space="preserve">
+        <value>Barbershop id not found in route params</value>
+    </data>
+    <data name="BARBERSHOP_ID_INVALID_IN_ROUTE" xml:space="preserve">
+        <value>Invalid barbershopId in route params</value>
+    </data>
+    <data name="USER_NOT_FOUND" xml:space="preserve">
+        <value>User not found.</value>
+    </data>
+    <data name="EMPLOYEE_ALREADY_REGISTERED" xml:space="preserve">
+        <value>Employee already registered.</value>
+    </data>
 </root>

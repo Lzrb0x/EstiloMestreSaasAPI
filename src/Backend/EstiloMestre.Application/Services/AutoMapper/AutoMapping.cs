@@ -23,5 +23,6 @@ public class AutoMapping : Profile
     private void DomainToResponse()
     {
         CreateMap<Barbershop, ResponseRegisteredBarbershopJson>();
+        CreateMap<Employee, ResponseRegisteredEmployeeJson>();
     }
 }

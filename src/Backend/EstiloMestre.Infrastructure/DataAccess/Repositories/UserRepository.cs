@@ -30,4 +30,9 @@ public class UserRepository : IUserRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
     }
+
+    public async Task<User?> GetByEmail(string email)
+    {
+        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(email));
+    }
 }

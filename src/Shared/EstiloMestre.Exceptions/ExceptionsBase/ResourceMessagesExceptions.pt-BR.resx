@@ -57,4 +57,16 @@
     <data name="TOKEN_EXPIRED" xml:space="preserve">
         <value>Token expirado.</value>
     </data>
+    <data name="BARBERSHOP_ID_NOT_FOUND_IN_ROUTE" xml:space="preserve">
+        <value>Id da barbearia não encontrado nos parametros de rota.</value>
+    </data>
+    <data name="BARBERSHOP_ID_INVALID_IN_ROUTE" xml:space="preserve">
+        <value>Id da barbearia invalido no parametro de rota.</value>
+    </data>
+    <data name="USER_NOT_FOUND" xml:space="preserve">
+        <value>Usuário não encontrado.</value>
+    </data>
+    <data name="EMPLOYEE_ALREADY_REGISTERED" xml:space="preserve">
+        <value>Funcionário já registrado.</value>
+    </data>
 </root>

@@ -2,6 +2,7 @@ namespace EstiloMestre.Communication.Responses;
 
 public class ResponseRegisteredEmployeeJson
 {
-    public long EmployeeId { get; set; }
+    public long Id { get; set; }
+    public long UserId { get; set; }
     public long BarbershopId { get; set; }
 }

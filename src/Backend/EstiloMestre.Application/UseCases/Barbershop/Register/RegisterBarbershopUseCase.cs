@@ -47,6 +47,6 @@ public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
     private static void ValidateRequest(RequestRegisterBarbershopJson request)
     {
         var result = new RegisterBarbershopValidator().Validate(request);
-        if (!result.IsValid) throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
+        if (!result.IsValid) throw new OnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
     }
 }

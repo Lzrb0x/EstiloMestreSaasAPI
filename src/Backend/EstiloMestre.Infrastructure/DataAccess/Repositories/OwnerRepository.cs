@@ -23,8 +23,10 @@ public class OwnerRepository : IOwnerRepository
         return await _dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId);
     }
 
-    public async Task<bool> ExistActiveOwnerWithUserId(long userId)
+    public async Task<bool> UserIsBarbershopOwner(long userId, long barbershopId)
     {
-        return await _dbContext.Owners.AsNoTracking().AnyAsync(o => o.UserId == userId && o.Active);
+        return await _dbContext.Owners
+            .AsNoTracking()
+            .AnyAsync(o => o.UserId == userId && o.Active && o.Barbershops.Any(b => b.Id == barbershopId));
     }
 }

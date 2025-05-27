@@ -67,7 +67,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 
         if (!result.IsValid)
         {
-            throw new ErrorOnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
+            throw new OnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
         }
     }
 }

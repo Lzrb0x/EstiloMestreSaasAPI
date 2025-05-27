@@ -1,6 +1,7 @@
 using System.Reflection;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Barbershop;
+using EstiloMestre.Domain.Repositories.Employee;
 using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Cryptography;
@@ -40,31 +41,38 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IBarbershopRepository, BarbershopRepository>();
         services.AddScoped<IOwnerRepository, OwnerRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)
     {
         var connectionString = config.ConnectionString();
         var serverVersion = new MySqlServerVersion(new Version(9, 3, 0));
-        services.AddDbContext<EstiloMestreDbContext>(dbOptions => { dbOptions.UseMySql(connectionString, serverVersion); });
+        services.AddDbContext<EstiloMestreDbContext>(dbOptions =>
+        {
+            dbOptions.UseMySql(connectionString, serverVersion);
+        });
     }
 
     private static void AddFluentMigrator(IServiceCollection services, IConfiguration config)
     {
         var connectionString = config.ConnectionString();
-        services.AddFluentMigratorCore().ConfigureRunner(runner =>
-        {
-            runner.AddMySql5()
-                .WithGlobalConnectionString(connectionString)
-                .ScanIn(Assembly.Load("EstiloMestre.Infrastructure")).For.All();
-        });
+        services.AddFluentMigratorCore()
+            .ConfigureRunner(runner =>
+            {
+                runner.AddMySql5()
+                    .WithGlobalConnectionString(connectionString)
+                    .ScanIn(Assembly.Load("EstiloMestre.Infrastructure"))
+                    .For
+                    .All();
+            });
     }
 
     private static void AddTokens(IServiceCollection services, IConfiguration config)
     {
         var expirationTime = config.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
         var signingKey = config.GetValue<string>("Settings:Jwt:SigningKey");
-        
+
         services.AddScoped<IAccessTokenGenerator>(_ => new JwtTokenGenerator(expirationTime, signingKey!));
         services.AddScoped<IAccessTokenValidator>(_ => new JwtTokenValidator(signingKey!));
     }
@@ -75,7 +83,7 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IPasswordEncripter>(_ => new Sha512PasswordEncripter(additionalKey!));
     }
-    
+
     private static void AddLoggedUser(IServiceCollection services)
     {
         services.AddScoped<ILoggedUser, LoggedUser>();

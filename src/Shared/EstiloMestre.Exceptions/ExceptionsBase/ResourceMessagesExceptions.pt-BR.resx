@@ -69,4 +69,16 @@
     <data name="EMPLOYEE_ALREADY_REGISTERED" xml:space="preserve">
         <value>Funcionário já registrado.</value>
     </data>
+    <data name="SERVICE_NAME_EMPTY" xml:space="preserve">
+        <value>Nome do serviço não pode ser vazio.</value>
+    </data>
+    <data name="SERVICE_NAME_TOO_LONG" xml:space="preserve">
+        <value>Nome de serviço muito longo.</value>
+    </data>
+    <data name="SERVICE_DESCRIPTION_TOO_LONG" xml:space="preserve">
+        <value>Descrição de serviço muito longa.</value>
+    </data>
+    <data name="SERVICE_ALREADY_EXISTS" xml:space="preserve">
+        <value>Serviço já registrado.</value>
+    </data>
 </root>

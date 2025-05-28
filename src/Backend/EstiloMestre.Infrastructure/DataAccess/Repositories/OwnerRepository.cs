@@ -4,28 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EstiloMestre.Infrastructure.DataAccess.Repositories;
 
-public class OwnerRepository : IOwnerRepository
+public class OwnerRepository(EstiloMestreDbContext dbContext) : IOwnerRepository
 {
-    private readonly EstiloMestreDbContext _dbContext;
-
-    public OwnerRepository(EstiloMestreDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task Add(Owner owner)
     {
-        await _dbContext.Owners.AddAsync(owner);
+        await dbContext.Owners.AddAsync(owner);
     }
 
     public async Task<Owner?> GetByUserId(long userId)
     {
-        return await _dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId);
+        return await dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId);
     }
 
     public async Task<bool> UserIsBarbershopOwner(long userId, long barbershopId)
     {
-        return await _dbContext.Owners
+        return await dbContext.Owners
             .AsNoTracking()
             .AnyAsync(o => o.UserId == userId && o.Active && o.Barbershops.Any(b => b.Id == barbershopId));
     }

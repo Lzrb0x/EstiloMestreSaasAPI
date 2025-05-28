@@ -3,6 +3,7 @@ using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Login.DoLogin;
 using EstiloMestre.Application.UseCases.Owner.Register;
+using EstiloMestre.Application.UseCases.Service.Register;
 using EstiloMestre.Application.UseCases.User.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +24,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterBarbershopUseCase, RegisterBarbershopUseCase>();
         services.AddScoped<IRegisterOwnerUseCase, RegisterOwnerUseCase>();
         services.AddScoped<IRegisterEmployeeUseCase, RegisterEmployeeUseCase>();
+        services.AddScoped<IRegisterServiceUseCase, RegisterServiceUseCase>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

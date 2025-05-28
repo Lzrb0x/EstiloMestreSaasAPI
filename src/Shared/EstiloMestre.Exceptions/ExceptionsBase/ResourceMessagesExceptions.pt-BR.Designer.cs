@@ -146,5 +146,29 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("EMPLOYEE_ALREADY_REGISTERED", resourceCulture);
             }
         }
+        
+        public static string SERVICE_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("SERVICE_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_NAME_TOO_LONG {
+            get {
+                return ResourceManager.GetString("SERVICE_NAME_TOO_LONG", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_DESCRIPTION_TOO_LONG {
+            get {
+                return ResourceManager.GetString("SERVICE_DESCRIPTION_TOO_LONG", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("SERVICE_ALREADY_EXISTS", resourceCulture);
+            }
+        }
     }
 }

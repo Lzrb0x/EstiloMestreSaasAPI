@@ -17,9 +17,4 @@ public class BarbershopRepository : IBarbershopRepository
     {
         await _dbContext.Barbershops.AddAsync(barbershop);
     }
-
-    public async Task<bool> UserIsBarbershopOwner(long ownerId, long barbershopId)
-    {
-        return await _dbContext.Barbershops.AnyAsync(b => b.Id == barbershopId && b.OwnerId == ownerId);
-    }
 }

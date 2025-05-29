@@ -81,4 +81,16 @@
     <data name="SERVICE_ALREADY_EXISTS" xml:space="preserve">
         <value>Serviço já registrado.</value>
     </data>
+    <data name="AT_LEAST_ONE_SERVICE_REQUIRED" xml:space="preserve">
+        <value>É necessário pelo menos um serviço</value>
+    </data>
+    <data name="SERVICE_PRICE_INVALID" xml:space="preserve">
+        <value>Preço de serviço inválido.</value>
+    </data>
+    <data name="SERVICE_DURATION_INVALID" xml:space="preserve">
+        <value>Tempo de serviço inválido.</value>
+    </data>
+    <data name="SERVICE_ID_INVALID" xml:space="preserve">
+        <value>Identificador de serviço inválido.</value>
+    </data>
 </root>

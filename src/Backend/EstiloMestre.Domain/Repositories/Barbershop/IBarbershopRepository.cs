@@ -1,3 +1,5 @@
+using EstiloMestre.Domain.DTOs;
+
 namespace EstiloMestre.Domain.Repositories.Barbershop;
 
 public interface IBarbershopRepository

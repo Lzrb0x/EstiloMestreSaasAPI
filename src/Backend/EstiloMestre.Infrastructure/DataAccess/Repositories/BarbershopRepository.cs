@@ -1,3 +1,4 @@
+using EstiloMestre.Domain.DTOs;
 using EstiloMestre.Domain.Entities;
 using EstiloMestre.Domain.Repositories.Barbershop;
 using Microsoft.EntityFrameworkCore;

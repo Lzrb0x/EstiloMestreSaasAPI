@@ -170,5 +170,29 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("SERVICE_ALREADY_EXISTS", resourceCulture);
             }
         }
+        
+        public static string AT_LEAST_ONE_SERVICE_REQUIRED {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_SERVICE_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_PRICE_INVALID {
+            get {
+                return ResourceManager.GetString("SERVICE_PRICE_INVALID", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_DURATION_INVALID {
+            get {
+                return ResourceManager.GetString("SERVICE_DURATION_INVALID", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_ID_INVALID {
+            get {
+                return ResourceManager.GetString("SERVICE_ID_INVALID", resourceCulture);
+            }
+        }
     }
 }

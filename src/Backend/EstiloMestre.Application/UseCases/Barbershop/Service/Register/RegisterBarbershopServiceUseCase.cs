@@ -1,35 +1,55 @@
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
+using EstiloMestre.Domain.Entities;
+using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.BarbershopService;
+using EstiloMestre.Domain.Repositories.Service;
 using EstiloMestre.Exceptions.ExceptionsBase;
 
 namespace EstiloMestre.Application.UseCases.Barbershop.Service.Register;
 
-public class RegisterBarbershopServiceUseCase(IBarbershopServiceRepository barbershopServicesRepository)
-    : IRegisterBarbershopServiceUseCase
+public class RegisterBarbershopServiceUseCase(
+    IBarbershopServiceRepository barbershopServicesRepository,
+    IServiceRepository serviceRepository,
+    IUnitOfWork unitOfWork
+) : IRegisterBarbershopServiceUseCase
 {
-    public async Task<ResponseRegisteredServiceJson> Execute(
+    public async Task<ResponseRegisteredBarbershopServiceJson> Execute(
         RequestRegisterBarbershopServiceJson request, long barbershopId
     )
     {
-        await ValidateRequest(request);
-
-        var barbershopServicesDto = request.BarbershopServices.Select(service => new Domain.DTOs.BarbershopServiceDto
-        {
-            Price = service.Price,
-            Duration = service.Duration,
-            DescriptionOverride = service.DescriptionOverride,
-            BarbershopId = barbershopId,
-            ServiceId = service.ServiceId
-        }).ToList();
+        ValidateRequest(request);
+        
+        
 
         
-        return new ResponseRegisteredServiceJson();
+        //ORDEM:
+        
+        // 1- filtro para ignorar serviços com id duplicados.
+        
+        // 2- verificar se o Id do serviço é válido(cadastrado como global.), caso não seja, lançar exceção
+        // com os ids inválidos.
+        
+        // verificar se o serviço já está cadastrado na barbearia, caso estiver, lançar exceção.
+        
+        
+        
+        
+        
+        
+
+        // await barbershopServicesRepository.AddRange(barbershopServices);
+        await unitOfWork.Commit();
+
+        return new ResponseRegisteredBarbershopServiceJson
+        {
+            Name = "Serviços cadastrados com sucesso!"
+        };
     }
 
-    private static async Task ValidateRequest(RequestRegisterBarbershopServiceJson request)
+    private static void ValidateRequest(RequestRegisterBarbershopServiceJson request)
     {
-        var result = await new RegisterBarbershopServiceValidator().ValidateAsync(request);
+        var result = new RegisterBarbershopServiceValidator().Validate(request);
 
         if (result.IsValid is false)
             throw new OnValidationException(result.Errors.Select(error => error.ErrorMessage).ToList());

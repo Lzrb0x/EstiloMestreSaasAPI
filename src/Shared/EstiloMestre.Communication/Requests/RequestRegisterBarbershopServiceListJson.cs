@@ -1,6 +1,6 @@
 namespace EstiloMestre.Communication.Requests;
 
-public class RequestRegisterBarbershopServiceJson
+public class RequestRegisterBarbershopServiceListJson
 {
     public IList<RequestBarbershopServiceJson> BarbershopServices { get; set; } = [];
 }

@@ -42,16 +42,17 @@ public class BarbershopController : EstiloMestreBaseController
 
     [BarbershopOwner]
     [HttpPost]
-    [Route("{barbershopId:long}/services")]
+    [Route("{barbershopId:long}/services/batch")]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterBarbershopService(
         [FromRoute] long barbershopId,
-        [FromBody] RequestRegisterBarbershopServiceJson request,
+        [FromBody] RequestRegisterBarbershopServiceListJson request,
         [FromServices] IRegisterBarbershopServiceListUseCase listUseCase
     )
     {
         var response = await listUseCase.Execute(request, barbershopId);
         return Created(string.Empty, response);
     }
+    
 }

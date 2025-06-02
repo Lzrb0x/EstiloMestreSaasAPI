@@ -17,7 +17,7 @@ public class RegisterBarbershopServiceListUseCase(
 ) : IRegisterBarbershopServiceListUseCase
 {
     public async Task<ResponseRegisteredBarbershopServiceJson> Execute(
-        RequestRegisterBarbershopServiceJson request, long barbershopId
+        RequestRegisterBarbershopServiceListJson request, long barbershopId
     )
     {
         ValidateRequest(request);
@@ -64,7 +64,7 @@ public class RegisterBarbershopServiceListUseCase(
         };
     }
 
-    private static void ValidateRequest(RequestRegisterBarbershopServiceJson request)
+    private static void ValidateRequest(RequestRegisterBarbershopServiceListJson request)
     {
         var result = new RegisterBarbershopServiceListValidator().Validate(request);
 

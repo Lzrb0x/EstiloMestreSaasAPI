@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace EstiloMestre.Application.UseCases.Barbershop.Service.Register;
 
-public class RegisterBarbershopServiceListValidator : AbstractValidator<RequestRegisterBarbershopServiceJson>
+public class RegisterBarbershopServiceListValidator : AbstractValidator<RequestRegisterBarbershopServiceListJson>
 {
     public RegisterBarbershopServiceListValidator()
     {

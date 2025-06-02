@@ -194,5 +194,17 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("SERVICE_DURATION_INVALID", resourceCulture);
             }
         }
+        
+        public static string SERVICE_WITH_ID_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("SERVICE_WITH_ID_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        public static string SERVICE_WITH_ID_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("SERVICE_WITH_ID_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
     }
 }

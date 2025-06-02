@@ -93,4 +93,10 @@
     <data name="SERVICE_ID_INVALID" xml:space="preserve">
         <value>Identificador de serviço inválido.</value>
     </data>
+    <data name="SERVICE_WITH_ID_NOT_FOUND" xml:space="preserve">
+        <value>Serviços com os id não encontrados: {0}</value>
+    </data>
+    <data name="SERVICE_WITH_ID_ALREADY_REGISTERED" xml:space="preserve">
+        <value>Serviço com o id já cadastrado: {0}</value>
+    </data>
 </root>

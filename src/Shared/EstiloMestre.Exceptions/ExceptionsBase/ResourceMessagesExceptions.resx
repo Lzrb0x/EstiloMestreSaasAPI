@@ -93,4 +93,10 @@
     <data name="SERVICE_DURATION_INVALID" xml:space="preserve">
         <value>Invalid service duration.</value>
     </data>
+    <data name="SERVICE_WITH_ID_NOT_FOUND" xml:space="preserve">
+        <value>Services with id not found: {0}</value>
+    </data>
+    <data name="SERVICE_WITH_ID_ALREADY_REGISTERED" xml:space="preserve">
+        <value>service with id is already registered: {0}</value>
+    </data>
 </root>

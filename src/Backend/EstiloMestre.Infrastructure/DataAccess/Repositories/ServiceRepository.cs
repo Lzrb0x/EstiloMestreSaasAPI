@@ -15,4 +15,9 @@ public class ServiceRepository(EstiloMestreDbContext dbContext) : IServiceReposi
     {
         return await dbContext.Services.AsNoTracking().AnyAsync(s => s.Name.Equals(name));
     }
+
+    public async Task<HashSet<long>> GetServicesIds()
+    {
+        return await dbContext.Services.AsNoTracking().Select(s => s.Id).ToHashSetAsync();
+    }
 }

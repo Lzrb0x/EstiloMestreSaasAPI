@@ -1,9 +1,9 @@
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 
-namespace EstiloMestre.Application.UseCases.Barbershop.Service.Register;
+namespace EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 
-public interface IRegisterBarbershopServiceUseCase
+public interface IRegisterBarbershopServiceListUseCase
 {
     Task<ResponseRegisteredBarbershopServiceJson> Execute(RequestRegisterBarbershopServiceJson request, long barbershopId);
 }

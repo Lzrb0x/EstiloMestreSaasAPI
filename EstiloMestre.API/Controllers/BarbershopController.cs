@@ -4,6 +4,7 @@ using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
+using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +18,7 @@ public class BarbershopController : EstiloMestreBaseController
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateBarbershop(
-        [FromServices] IRegisterBarbershopUseCase useCase,
-        [FromBody] RequestRegisterBarbershopJson request
+        [FromServices] IRegisterBarbershopUseCase useCase, [FromBody] RequestRegisterBarbershopJson request
     )
     {
         var response = await useCase.Execute(request);
@@ -31,8 +31,7 @@ public class BarbershopController : EstiloMestreBaseController
     [ProducesResponseType(typeof(ResponseRegisteredEmployeeJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterEmployee(
-        [FromRoute] long barbershopId,
-        [FromBody] RequestRegisterEmployeeJson request,
+        [FromRoute] long barbershopId, [FromBody] RequestRegisterEmployeeJson request,
         [FromServices] IRegisterEmployeeUseCase useCase
     )
     {
@@ -42,17 +41,30 @@ public class BarbershopController : EstiloMestreBaseController
 
     [BarbershopOwner]
     [HttpPost]
-    [Route("{barbershopId:long}/services/batch")]
+    [Route("{barbershopId:long}/services/list")]
+    [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> RegisterBarbershopServiceList(
+        [FromRoute] long barbershopId, [FromBody] RequestRegisterBarbershopServiceListJson request,
+        [FromServices] IRegisterBarbershopServiceListUseCase useCase
+    )
+    {
+        var response = await useCase.Execute(request, barbershopId);
+        return Created(string.Empty, response);
+    }
+
+
+    [BarbershopOwner]
+    [HttpPost]
+    [Route("{barbershopId:long}/services")]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterBarbershopService(
-        [FromRoute] long barbershopId,
-        [FromBody] RequestRegisterBarbershopServiceListJson request,
-        [FromServices] IRegisterBarbershopServiceListUseCase listUseCase
+        [FromRoute] long barbershopId, [FromBody] RequestBarbershopServiceJson request,
+        [FromServices] IRegisterBarbershopServiceUseCase useCase
     )
     {
-        var response = await listUseCase.Execute(request, barbershopId);
+        var response = await useCase.Execute(request, barbershopId);
         return Created(string.Empty, response);
     }
-    
 }

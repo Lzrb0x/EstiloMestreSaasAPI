@@ -70,6 +70,6 @@ public class RegisterBarbershopServiceListUseCase(
         var result = new RegisterBarbershopServiceListValidator().Validate(request);
 
         if (!result.IsValid)
-            throw new OnValidationException(result.Errors.Select(error => error.ErrorMessage).ToList());
+            throw new OnValidationException(result.Errors.Select(e => e.ErrorMessage).ToList());
     }
 }

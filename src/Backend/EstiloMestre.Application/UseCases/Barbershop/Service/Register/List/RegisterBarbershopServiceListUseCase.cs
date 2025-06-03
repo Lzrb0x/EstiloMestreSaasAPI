@@ -36,18 +36,19 @@ public class RegisterBarbershopServiceListUseCase(
 
         var barbershopServicesAlreadyRegistered = await barbershopServicesRepository
            .GetBarbershopServicesIdsByBarbershopId(barbershopId);
-
-        var servicesAlreadyRegistered = servicesDtoFiltered
-           .Where(s => barbershopServicesAlreadyRegistered.Contains(s.ServiceId))
-           .ToList();
-
-        if (servicesAlreadyRegistered.Any())
+        if (barbershopServicesAlreadyRegistered.Any())
         {
-            var alreadyRegisteredIds = string.Join(", ", servicesAlreadyRegistered.Select(s => s.ServiceId));
-            throw new BusinessRuleException(string.Format(ResourceMessagesExceptions.SERVICE_WITH_ID_ALREADY_REGISTERED,
-                alreadyRegisteredIds));
-        }
+            var servicesAlreadyRegistered = servicesDtoFiltered
+               .Where(s => barbershopServicesAlreadyRegistered.Contains(s.ServiceId))
+               .ToList();
 
+            if (servicesAlreadyRegistered.Any())
+            {
+                var alreadyRegisteredIds = string.Join(", ", servicesAlreadyRegistered.Select(s => s.ServiceId));
+                throw new BusinessRuleException(
+                    string.Format(ResourceMessagesExceptions.SERVICE_WITH_ID_ALREADY_REGISTERED, alreadyRegisteredIds));
+            }
+        }
 
         var barbershopServices = mapper.Map<List<BarbershopService>>(servicesDtoFiltered);
         barbershopServices.ForEach(service =>

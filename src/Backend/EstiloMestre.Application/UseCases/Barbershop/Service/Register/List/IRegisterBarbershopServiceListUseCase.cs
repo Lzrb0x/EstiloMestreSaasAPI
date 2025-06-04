@@ -5,7 +5,7 @@ namespace EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 
 public interface IRegisterBarbershopServiceListUseCase
 {
-    Task<ResponseRegisteredBarbershopServiceJson> Execute(
+    Task<ResponseRegisteredBarbershopServiceListJson> Execute(
         RequestRegisterBarbershopServiceListJson request, long barbershopId
     );
 }

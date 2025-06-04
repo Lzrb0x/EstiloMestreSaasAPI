@@ -16,7 +16,7 @@ public class RegisterBarbershopServiceListUseCase(
     IMapper mapper
 ) : IRegisterBarbershopServiceListUseCase
 {
-    public async Task<ResponseRegisteredBarbershopServiceJson> Execute(
+    public async Task<ResponseRegisteredBarbershopServiceListJson> Execute(
         RequestRegisterBarbershopServiceListJson request, long barbershopId
     )
     {
@@ -26,16 +26,17 @@ public class RegisterBarbershopServiceListUseCase(
 
         var globalServicesIds = await serviceRepository.GetServicesIds();
 
-        var notFoundServices = servicesDtoFiltered.Where(s => !globalServicesIds.Contains(s.ServiceId)).ToList();
-        if (notFoundServices.Any())
+        var serviceNotFound = servicesDtoFiltered.Where(s => !globalServicesIds.Contains(s.ServiceId)).ToList();
+        if (serviceNotFound.Any())
         {
-            var notFoundIds = string.Join(", ", notFoundServices.Select(s => s.ServiceId));
+            var notFoundIds = string.Join(", ", serviceNotFound.Select(s => s.ServiceId));
             throw new BusinessRuleException(string.Format(ResourceMessagesExceptions.SERVICE_WITH_ID_NOT_FOUND,
                 notFoundIds));
         }
 
         var barbershopServicesAlreadyRegistered = await barbershopServicesRepository
            .GetBarbershopServicesIdsByBarbershopId(barbershopId);
+        
         if (barbershopServicesAlreadyRegistered.Any())
         {
             var servicesAlreadyRegistered = servicesDtoFiltered
@@ -59,9 +60,9 @@ public class RegisterBarbershopServiceListUseCase(
         await barbershopServicesRepository.AddRange(barbershopServices);
         await unitOfWork.Commit();
 
-        return new ResponseRegisteredBarbershopServiceJson
+        return new ResponseRegisteredBarbershopServiceListJson
         {
-            Message = "Serviços cadastrados com sucesso!"
+            BarbershopServices = mapper.Map<List<ResponseRegisteredBarbershopServiceJson>>(barbershopServices)
         };
     }
 

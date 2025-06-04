@@ -27,5 +27,9 @@ public class AutoMapping : Profile
         CreateMap<Barbershop, ResponseRegisteredBarbershopJson>();
         CreateMap<Employee, ResponseRegisteredEmployeeJson>();
         CreateMap<Service, ResponseRegisteredServiceJson>();
+        CreateMap<BarbershopService, ResponseRegisteredBarbershopServiceJson>()
+           .ForMember(dest => dest.DescriptionOverride,
+                opt => opt.MapFrom(src => src.DescriptionOverride ?? string.Empty))
+           .ForMember(dest => dest.BarbershopServiceId, opt => opt.MapFrom(src => src.Id));
     }
 }

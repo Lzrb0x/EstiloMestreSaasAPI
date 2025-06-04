@@ -1,4 +1,3 @@
-using EstiloMestre.Domain.DTOs;
 using EstiloMestre.Domain.Entities;
 using EstiloMestre.Domain.Repositories.BarbershopService;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +13,14 @@ public class BarbershopServiceRepository(EstiloMestreDbContext dbContext) : IBar
            .Select(bs => bs.ServiceId)
            .ToHashSetAsync();
     }
-    
+
     public async Task AddRange(List<BarbershopService> barbershopServices)
     {
         await dbContext.BarbershopServices.AddRangeAsync(barbershopServices);
+    }
+
+    public async Task Add(BarbershopService barbershopService)
+    {
+        await dbContext.BarbershopServices.AddAsync(barbershopService);
     }
 }

@@ -2,7 +2,6 @@ using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
-using EstiloMestre.Application.UseCases.Barbershop.Service.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
 using EstiloMestre.Communication.Requests;
@@ -42,7 +41,7 @@ public class BarbershopController : EstiloMestreBaseController
     [BarbershopOwner]
     [HttpPost]
     [Route("{barbershopId:long}/services/list")]
-    [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceListJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterBarbershopServiceList(
         [FromRoute] long barbershopId, [FromBody] RequestRegisterBarbershopServiceListJson request,

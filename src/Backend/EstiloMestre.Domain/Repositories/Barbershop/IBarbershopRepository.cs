@@ -1,4 +1,3 @@
-using EstiloMestre.Domain.DTOs;
 
 namespace EstiloMestre.Domain.Repositories.Barbershop;
 

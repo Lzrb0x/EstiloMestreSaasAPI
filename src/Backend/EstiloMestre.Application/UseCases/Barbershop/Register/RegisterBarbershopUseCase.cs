@@ -9,39 +9,26 @@ using EstiloMestre.Exceptions.ExceptionsBase;
 
 namespace EstiloMestre.Application.UseCases.Barbershop.Register;
 
-public class RegisterBarbershopUseCase : IRegisterBarbershopUseCase
+public class RegisterBarbershopUseCase(
+    IBarbershopRepository barbershopRepository,
+    IRegisterOwnerUseCase registerOwnerUseCase,
+    IUnitOfWork unitOfWork,
+    IMapper mapper
+) : IRegisterBarbershopUseCase
 {
-    private readonly IBarbershopRepository _barbershopRepository;
-    private readonly IRegisterOwnerUseCase _registerOwnerUseCase;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-
-    public RegisterBarbershopUseCase(
-        IBarbershopRepository barbershopRepository,
-        IRegisterOwnerUseCase registerOwnerUseCase,
-        IUnitOfWork unitOfWork,
-        IMapper mapper
-    )
-    {
-        _barbershopRepository = barbershopRepository;
-        _registerOwnerUseCase = registerOwnerUseCase;
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-    }
-
     public async Task<ResponseRegisteredBarbershopJson> Execute(RequestRegisterBarbershopJson request)
     {
         ValidateRequest(request);
 
-        var owner = await _registerOwnerUseCase.Execute();
+        var owner = await registerOwnerUseCase.Execute();
 
-        var barbershop = _mapper.Map<Domain.Entities.Barbershop>(request);
-        barbershop.OwnerId = owner.OwnerId;
+        var barbershop = mapper.Map<Domain.Entities.Barbershop>(request);
+        barbershop.OwnerId = owner.Id;
 
-        await _barbershopRepository.Add(barbershop);
-        await _unitOfWork.Commit();
+        await barbershopRepository.Add(barbershop);
+        await unitOfWork.Commit();
 
-        return _mapper.Map<ResponseRegisteredBarbershopJson>(barbershop);
+        return mapper.Map<ResponseRegisteredBarbershopJson>(barbershop);
     }
 
     private static void ValidateRequest(RequestRegisterBarbershopJson request)

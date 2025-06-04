@@ -31,5 +31,6 @@ public class AutoMapping : Profile
            .ForMember(dest => dest.DescriptionOverride,
                 opt => opt.MapFrom(src => src.DescriptionOverride ?? string.Empty))
            .ForMember(dest => dest.BarbershopServiceId, opt => opt.MapFrom(src => src.Id));
+        CreateMap<Owner, ResponseRegisteredOwnerJson>();
     }
 }

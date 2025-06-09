@@ -24,7 +24,7 @@ public class BarbershopController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
-    [BarbershopOwner]
+    [Owner]
     [HttpPost]
     [Route("{barbershopId:long}/employees")]
     [ProducesResponseType(typeof(ResponseRegisteredEmployeeJson), StatusCodes.Status201Created)]
@@ -38,7 +38,7 @@ public class BarbershopController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
-    [BarbershopOwner]
+    [Owner]
     [HttpPost]
     [Route("{barbershopId:long}/services/list")]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceListJson), StatusCodes.Status201Created)]
@@ -53,7 +53,7 @@ public class BarbershopController : EstiloMestreBaseController
     }
 
 
-    [BarbershopOwner]
+    [Owner]
     [HttpPost]
     [Route("{barbershopId:long}/services")]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceJson), StatusCodes.Status201Created)]
@@ -66,4 +66,8 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(request, barbershopId);
         return Created(string.Empty, response);
     }
+    
+    // TODO: criar atributo de autorização para onde apenas o dono e o próprio funcionário podem acessar
+    // [HttpPost]
+    // [Route("{barbershopId:long}/employees/{employeeId:long}/services")]
 }

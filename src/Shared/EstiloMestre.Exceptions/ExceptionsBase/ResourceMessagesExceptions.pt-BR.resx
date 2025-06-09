@@ -66,8 +66,8 @@
     <data name="USER_NOT_FOUND" xml:space="preserve">
         <value>Usuário não encontrado.</value>
     </data>
-    <data name="EMPLOYEE_ALREADY_REGISTERED" xml:space="preserve">
-        <value>Funcionário já registrado.</value>
+    <data name="EMPLOYEE_ALREADY_REGISTERED_IN_THIS_BARBERSHOP" xml:space="preserve">
+        <value>Funcionário já registrado nesta barbearia.</value>
     </data>
     <data name="SERVICE_NAME_EMPTY" xml:space="preserve">
         <value>Nome do serviço não pode ser vazio.</value>
@@ -98,5 +98,8 @@
     </data>
     <data name="SERVICE_WITH_ID_ALREADY_REGISTERED" xml:space="preserve">
         <value>Serviço com o id já cadastrado: {0}</value>
+    </data>
+    <data name="EMPLOYEE_ALREADY_REGISTERED_IN_ANOTHER BARBERSHOP" xml:space="preserve">
+        <value>Funcionário já está registrado em outra barbearia.</value>
     </data>
 </root>

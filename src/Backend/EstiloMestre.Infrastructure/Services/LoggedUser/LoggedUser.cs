@@ -8,20 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EstiloMestre.Infrastructure.Services.LoggedUser;
 
-public class LoggedUser : ILoggedUser
+public class LoggedUser(EstiloMestreDbContext dbContext, ITokenProvider tokenProvider) : ILoggedUser
 {
-    private readonly EstiloMestreDbContext _dbContext;
-    private readonly ITokenProvider _tokenProvider;
-
-    public LoggedUser(EstiloMestreDbContext dbContext, ITokenProvider tokenProvider)
-    {
-        _dbContext = dbContext;
-        _tokenProvider = tokenProvider;
-    }
-
     public async Task<User> User()
     {
-        var token = _tokenProvider.Value();
+        var token = tokenProvider.Value();
 
         var tokenHandle = new JwtSecurityTokenHandler();
         var jwtSecurityToken = tokenHandle.ReadJwtToken(token);
@@ -30,6 +21,6 @@ public class LoggedUser : ILoggedUser
 
         var userIdentifierToGuid = Guid.Parse(userIdentifier!);
 
-        return await _dbContext.Users.AsNoTracking().FirstAsync(u => u.UserIdentifier.Equals(userIdentifierToGuid));
+        return await dbContext.Users.AsNoTracking().FirstAsync(u => u.UserIdentifier.Equals(userIdentifierToGuid));
     }
 }

@@ -141,9 +141,9 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
             }
         }
         
-        public static string EMPLOYEE_ALREADY_REGISTERED {
+        public static string EMPLOYEE_ALREADY_REGISTERED_IN_THIS_BARBERSHOP {
             get {
-                return ResourceManager.GetString("EMPLOYEE_ALREADY_REGISTERED", resourceCulture);
+                return ResourceManager.GetString("EMPLOYEE_ALREADY_REGISTERED_IN_THIS_BARBERSHOP", resourceCulture);
             }
         }
         
@@ -204,6 +204,12 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
         public static string SERVICE_WITH_ID_ALREADY_REGISTERED {
             get {
                 return ResourceManager.GetString("SERVICE_WITH_ID_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        public static string EMPLOYEE_ALREADY_REGISTERED_IN_ANOTHER_BARBERSHOP {
+            get {
+                return ResourceManager.GetString("EMPLOYEE_ALREADY_REGISTERED_IN_ANOTHER BARBERSHOP", resourceCulture);
             }
         }
     }

@@ -1,4 +1,6 @@
+using EstiloMestre.API.Services;
 using EstiloMestre.Communication.Responses;
+using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Exceptions.ExceptionsBase;
@@ -8,10 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.API.Filters;
 
-public class AuthenticatedUserFilter(
+public class OwnerFilter(
     IAccessTokenValidator tokenValidator,
-    IUserRepository repository,
-    ITokenProvider tokenProvider
+    IOwnerRepository ownerRepository,
+    IUserRepository userRepository,
+    ITokenProvider tokenProvider,
+    IRouteParameterExtractor routeParams
 ) : IAsyncAuthorizationFilter
 {
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -21,8 +25,12 @@ public class AuthenticatedUserFilter(
             var token = tokenProvider.Value();
 
             var userIdentifier = tokenValidator.ValidateAndGetUserIdentifier(token);
-            var userExist = await repository.ExistActiveUserWithIdentifier(userIdentifier);
+            var userExist = await userRepository.ExistActiveUserWithIdentifier(userIdentifier);
             if (userExist == null)
+                throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+
+            var userIsOwner = await ownerRepository.UserIsBarbershopOwner(userExist.Id, routeParams.BarbershopId());
+            if (!userIsOwner)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
         } catch (SecurityTokenExpiredException)
         {

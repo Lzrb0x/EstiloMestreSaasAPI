@@ -13,6 +13,13 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
 
     public async Task<bool> ExistRegisteredEmployeeWithUserId(long userId)
     {
-        return await dbContext.Employees.AsNoTracking().AnyAsync(e => e.UserId == userId);
+        return await dbContext.Employees.AsNoTracking().AnyAsync(e => e.UserId == userId && e.Active == true);
+    }
+
+    public Task<bool> ExistRegisteredEmployeeWithUserIdAndBarbershopId(long userId, long barbershopId)
+    {
+        return dbContext.Employees
+           .AsNoTracking()
+           .AnyAsync(e => e.UserId == userId && e.Active == true && e.BarberShopId == barbershopId);
     }
 }

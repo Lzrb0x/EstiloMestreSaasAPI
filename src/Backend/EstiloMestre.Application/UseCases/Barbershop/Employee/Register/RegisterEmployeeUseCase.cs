@@ -22,8 +22,12 @@ public class RegisterEmployeeUseCase(
         var user = await userRepository.GetByEmail(request.Email);
         if (user is null) throw new NotFoundException(ResourceMessagesExceptions.USER_NOT_FOUND);
 
+        if (await employeeRepository.ExistRegisteredEmployeeWithUserIdAndBarbershopId(user.Id, barbershopId))
+            throw new BusinessRuleException(ResourceMessagesExceptions.EMPLOYEE_ALREADY_REGISTERED_IN_THIS_BARBERSHOP);
+
         if (await employeeRepository.ExistRegisteredEmployeeWithUserId(user.Id))
-            throw new BusinessRuleException(ResourceMessagesExceptions.EMPLOYEE_ALREADY_REGISTERED);
+            throw new BusinessRuleException(
+                ResourceMessagesExceptions.EMPLOYEE_ALREADY_REGISTERED_IN_ANOTHER_BARBERSHOP);
 
         var employee = new Domain.Entities.Employee
         {

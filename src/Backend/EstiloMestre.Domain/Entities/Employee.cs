@@ -8,4 +8,6 @@ public class Employee : EntityBase
     public long UserId { get; set; }
     public long BarberShopId { get; set; }
     public Barbershop BarberShop { get; set; } = null!;
+    
+    public IList<BarbershopService> BarbershopServices { get; set; } = [];
 }

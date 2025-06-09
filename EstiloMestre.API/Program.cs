@@ -1,7 +1,8 @@
 using EstiloMestre.API.Converters;
 using EstiloMestre.API.Filters;
 using EstiloMestre.API.Middlewares;
-using EstiloMestre.API.Token;
+using EstiloMestre.API.Services;
+using EstiloMestre.API.Services.Token;
 using EstiloMestre.Application;
 using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Infrastructure;
@@ -48,6 +49,8 @@ builder.Services.AddMvc(opt => opt.Filters.Add<ExceptionFilter>());
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenProvider>();
+builder.Services.AddScoped<IRouteParameterExtractor, RouteParameterExtractor>();
+
 
 builder.Services.AddHttpContextAccessor(); //permite o acesso ao HttpContext em classes de filtros
 

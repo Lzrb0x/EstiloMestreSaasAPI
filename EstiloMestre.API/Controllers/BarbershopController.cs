@@ -1,6 +1,7 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
@@ -66,8 +67,19 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(request, barbershopId);
         return Created(string.Empty, response);
     }
+
     
-    // TODO: criar atributo de autorização para onde apenas o dono e o próprio funcionário podem acessar
-    // [HttpPost]
-    // [Route("{barbershopId:long}/employees/{employeeId:long}/services")]
+    [OwnerOrEmployee]
+    [HttpPost]
+    [Route("{barbershopId:long}/employees/{employeeId:long}/services")]
+    [ProducesResponseType(typeof(ResponseRegisteredServiceEmployeeJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> RegisterEmployeeService(
+        [FromRoute] long barbershopId, [FromRoute] long employeeId,
+        [FromBody] RequestRegisterServiceEmployeeJson request, [FromServices] IRegisterServiceEmployeeUseCase useCase
+    )
+    {
+        var response = await useCase.Execute(request, barbershopId, employeeId);
+        return Created(string.Empty, response);
+    }
 }

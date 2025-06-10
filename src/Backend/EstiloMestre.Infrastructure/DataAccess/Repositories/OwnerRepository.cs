@@ -15,11 +15,4 @@ public class OwnerRepository(EstiloMestreDbContext dbContext) : IOwnerRepository
     {
         return await dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId);
     }
-
-    public async Task<bool> UserIsBarbershopOwner(long userId, long barbershopId)
-    {
-        return await dbContext.Owners
-            .AsNoTracking()
-            .AnyAsync(o => o.UserId == userId && o.Active && o.Barbershops.Any(b => b.Id == barbershopId));
-    }
 }

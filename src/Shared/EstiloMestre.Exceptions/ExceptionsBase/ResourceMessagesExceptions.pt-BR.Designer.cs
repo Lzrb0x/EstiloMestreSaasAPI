@@ -212,5 +212,29 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("EMPLOYEE_ALREADY_REGISTERED_IN_ANOTHER BARBERSHOP", resourceCulture);
             }
         }
+        
+        public static string EMPLOYEE_SERVICE_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("EMPLOYEE_SERVICE_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        public static string BARBERSHOP_SERVICE_WITH_ID_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("BARBERSHOP_SERVICE_WITH_ID_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        public static string EMPLOYEE_ID_NOT_FOUND_IN_ROUTE {
+            get {
+                return ResourceManager.GetString("EMPLOYEE_ID_NOT_FOUND_IN_ROUTE", resourceCulture);
+            }
+        }
+        
+        public static string EMPLOYEE_ID_INVALID_IN_ROUTE {
+            get {
+                return ResourceManager.GetString("EMPLOYEE_ID_INVALID_IN_ROUTE", resourceCulture);
+            }
+        }
     }
 }

@@ -20,6 +20,8 @@ public class AutoMapping : Profile
         CreateMap<RequestServiceJson, Service>();
         CreateMap<RequestBarbershopServiceJson, BarbershopService>()
            .ForMember(dest => dest.BarbershopId, opt => opt.Ignore());
+        CreateMap<RequestRegisterServiceEmployeeJson, ServiceEmployee>()
+           .ForMember(dest => dest.EmployeeId, opt => opt.Ignore());
     }
 
     private void DomainToResponse()

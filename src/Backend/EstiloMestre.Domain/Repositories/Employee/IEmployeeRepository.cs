@@ -6,4 +6,8 @@ public interface IEmployeeRepository
     Task<bool> ExistRegisteredEmployeeWithUserId(long userId);
     
     Task<bool> ExistRegisteredEmployeeWithUserIdAndBarbershopId(long userId, long barbershopId);
+
+    Task<HashSet<long>> GetRegisteredBarbershopServicesByEmployeeId(long employeeId);
+    
+    Task<Entities.Employee?> GetEmployeeById(long userId);
 }

@@ -13,9 +13,11 @@ public class EstiloMestreDbContext(DbContextOptions<EstiloMestreDbContext> optio
     public DbSet<Employee> Employees { get; set; }
 
     public DbSet<Service> Services { get; set; }
-    
-    public DbSet<BarbershopService> BarbershopServices { get; set; }
 
+    public DbSet<BarbershopService> BarbershopServices { get; set; }
+    
+    public DbSet<ServiceEmployee> ServiceEmployees { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EstiloMestreDbContext).Assembly);

@@ -28,10 +28,10 @@ public class RegisterBarbershopServiceUseCase(
             throw new BusinessRuleException(string.Format(ResourceMessagesExceptions.SERVICE_WITH_ID_NOT_FOUND,
                 request.ServiceId));
 
-        var barbershopServicesAlreadyRegistered = await barbershopServicesRepository
-           .GetBarbershopServicesIdsByBarbershopId(barbershopId);
+        var servicesAlreadyRegisteredOnBarbershop = await barbershopServicesRepository
+           .GetGlobalServicesAlreadyRegisteredOnBarbershop(barbershopId);
 
-        if (barbershopServicesAlreadyRegistered.Contains(request.ServiceId))
+        if (servicesAlreadyRegisteredOnBarbershop.Contains(request.ServiceId))
             throw new BusinessRuleException(string.Format(ResourceMessagesExceptions.SERVICE_WITH_ID_ALREADY_REGISTERED,
                 request.ServiceId));
 

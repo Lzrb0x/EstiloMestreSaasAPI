@@ -35,7 +35,7 @@ public class RegisterBarbershopServiceListUseCase(
         }
 
         var barbershopServicesAlreadyRegistered = await barbershopServicesRepository
-           .GetBarbershopServicesIdsByBarbershopId(barbershopId);
+           .GetGlobalServicesAlreadyRegisteredOnBarbershop(barbershopId);
         
         if (barbershopServicesAlreadyRegistered.Any())
         {

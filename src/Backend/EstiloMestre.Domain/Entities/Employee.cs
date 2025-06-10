@@ -9,5 +9,5 @@ public class Employee : EntityBase
     public long BarberShopId { get; set; }
     public Barbershop BarberShop { get; set; } = null!;
     
-    public IList<BarbershopService> BarbershopServices { get; set; } = [];
+    public IList<ServiceEmployee> ServicesEmployee { get; set; } = [];
 }

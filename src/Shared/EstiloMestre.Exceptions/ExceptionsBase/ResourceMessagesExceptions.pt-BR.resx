@@ -102,4 +102,16 @@
     <data name="EMPLOYEE_ALREADY_REGISTERED_IN_ANOTHER BARBERSHOP" xml:space="preserve">
         <value>Funcionário já está registrado em outra barbearia.</value>
     </data>
+    <data name="EMPLOYEE_SERVICE_ALREADY_REGISTERED" xml:space="preserve">
+        <value>Funcionário já executa esse serviço.</value>
+    </data>
+    <data name="BARBERSHOP_SERVICE_WITH_ID_NOT_FOUND" xml:space="preserve">
+        <value>Serviço de barbearia com id não encontrado.</value>
+    </data>
+    <data name="EMPLOYEE_ID_NOT_FOUND_IN_ROUTE" xml:space="preserve">
+        <value>Id do funcionario não encontrado na rota.</value>
+    </data>
+    <data name="EMPLOYEE_ID_INVALID_IN_ROUTE" xml:space="preserve">
+        <value>Id de Funcionario invalido na rota.</value>
+    </data>
 </root>

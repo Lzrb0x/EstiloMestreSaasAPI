@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.API.Filters;
 
-public class OwnerOrEmployeeFilter(
+public class OwnerByBarbershopFilter(
     IAccessTokenValidator tokenValidator,
     IBarbershopRepository barbershopRepository,
     IUserRepository userRepository,
@@ -29,9 +29,9 @@ public class OwnerOrEmployeeFilter(
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
 
-            var userIsOwnerOrEmployee = await barbershopRepository.UserIsOwnerOrEmployee(userExist.Id,
-                routeParams.BarbershopId(), routeParams.EmployeeId());
-            if (!userIsOwnerOrEmployee)
+            var userIsOwner =
+                await barbershopRepository.UserIsBarbershopOwner(userExist.Id, routeParams.BarbershopId());
+            if (!userIsOwner)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
         } catch (SecurityTokenExpiredException)
         {

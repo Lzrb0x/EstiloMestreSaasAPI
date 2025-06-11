@@ -13,6 +13,6 @@ public class OwnerRepository(EstiloMestreDbContext dbContext) : IOwnerRepository
 
     public async Task<Owner?> GetByUserId(long userId)
     {
-        return await dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId);
+        return await dbContext.Owners.FirstOrDefaultAsync(o => o.UserId == userId && o.Active);
     }
 }

@@ -25,7 +25,7 @@ public class BarbershopController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
-    [Owner]
+    [OwnerByBarbershop]
     [HttpPost]
     [Route("{barbershopId:long}/employees")]
     [ProducesResponseType(typeof(ResponseRegisteredEmployeeJson), StatusCodes.Status201Created)]
@@ -39,7 +39,7 @@ public class BarbershopController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
-    [Owner]
+    [OwnerByBarbershop]
     [HttpPost]
     [Route("{barbershopId:long}/services/list")]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceListJson), StatusCodes.Status201Created)]
@@ -54,7 +54,7 @@ public class BarbershopController : EstiloMestreBaseController
     }
 
 
-    [Owner]
+    [OwnerByBarbershop]
     [HttpPost]
     [Route("{barbershopId:long}/services")]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopServiceJson), StatusCodes.Status201Created)]
@@ -69,7 +69,7 @@ public class BarbershopController : EstiloMestreBaseController
     }
 
 
-    [OwnerOrEmployee]
+    [OwnerOrEmployeeByBarbershop]
     [HttpPost]
     [Route("{barbershopId:long}/employees/{employeeId:long}/services")]
     [ProducesResponseType(typeof(ResponseRegisteredServiceEmployeeJson), StatusCodes.Status201Created)]

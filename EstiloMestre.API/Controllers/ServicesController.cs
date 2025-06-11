@@ -25,6 +25,7 @@ public class ServicesController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
+    [Owner]
     [HttpGet]
     [ProducesResponseType(typeof(ResponseGlobalServicesList), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]

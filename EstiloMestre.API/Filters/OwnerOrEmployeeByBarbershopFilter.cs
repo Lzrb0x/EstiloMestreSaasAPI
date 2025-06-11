@@ -1,7 +1,6 @@
 using EstiloMestre.API.Services;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories.Barbershop;
-using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Exceptions.ExceptionsBase;
@@ -11,11 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.API.Filters;
 
-public class OwnerFilter(
+public class OwnerOrEmployeeByBarbershopFilter(
     IAccessTokenValidator tokenValidator,
+    IBarbershopRepository barbershopRepository,
     IUserRepository userRepository,
     ITokenProvider tokenProvider,
-    IOwnerRepository ownerRepository
+    IRouteParameterExtractor routeParams
 ) : IAsyncAuthorizationFilter
 {
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -29,23 +29,21 @@ public class OwnerFilter(
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
 
-            var userIsAnOwner = await ownerRepository.GetByUserId(userExist.Id);
-            if (userIsAnOwner == null)
+            var userIsOwnerOrEmployee = await barbershopRepository.UserIsOwnerOrEmployee(userExist.Id,
+                routeParams.BarbershopId(), routeParams.EmployeeId());
+            if (!userIsOwnerOrEmployee)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
-        }
-        catch (SecurityTokenExpiredException)
+        } catch (SecurityTokenExpiredException)
         {
             context.Result = new UnauthorizedObjectResult(
                 new ResponseErrorJson(ResourceMessagesExceptions.TOKEN_EXPIRED)
                 {
                     TokenIsExpired = true
                 });
-        }
-        catch (EstiloMestreException ex)
+        } catch (EstiloMestreException ex)
         {
             context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ex.Message));
-        }
-        catch
+        } catch
         {
             context.Result = new UnauthorizedObjectResult(
                 new ResponseErrorJson(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE));

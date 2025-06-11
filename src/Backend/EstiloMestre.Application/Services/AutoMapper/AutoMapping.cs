@@ -19,9 +19,9 @@ public class AutoMapping : Profile
         CreateMap<RequestRegisterBarbershopJson, Barbershop>();
         CreateMap<RequestServiceJson, Service>();
         CreateMap<RequestBarbershopServiceJson, BarbershopService>()
-           .ForMember(dest => dest.BarbershopId, opt => opt.Ignore());
+            .ForMember(dest => dest.BarbershopId, opt => opt.Ignore());
         CreateMap<RequestRegisterServiceEmployeeJson, ServiceEmployee>()
-           .ForMember(dest => dest.EmployeeId, opt => opt.Ignore());
+            .ForMember(dest => dest.EmployeeId, opt => opt.Ignore());
     }
 
     private void DomainToResponse()
@@ -30,9 +30,10 @@ public class AutoMapping : Profile
         CreateMap<Employee, ResponseRegisteredEmployeeJson>();
         CreateMap<Service, ResponseRegisteredServiceJson>();
         CreateMap<BarbershopService, ResponseRegisteredBarbershopServiceJson>()
-           .ForMember(dest => dest.DescriptionOverride,
+            .ForMember(dest => dest.DescriptionOverride,
                 opt => opt.MapFrom(src => src.DescriptionOverride ?? string.Empty))
-           .ForMember(dest => dest.BarbershopServiceId, opt => opt.MapFrom(src => src.Id));
+            .ForMember(dest => dest.BarbershopServiceId, opt => opt.MapFrom(src => src.Id));
         CreateMap<Owner, ResponseRegisteredOwnerJson>();
+        CreateMap<ServiceEmployee, ResponseRegisteredServiceEmployeeJson>();
     }
 }

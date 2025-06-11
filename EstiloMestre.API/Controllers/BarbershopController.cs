@@ -68,7 +68,7 @@ public class BarbershopController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
-    
+
     [OwnerOrEmployee]
     [HttpPost]
     [Route("{barbershopId:long}/employees/{employeeId:long}/services")]

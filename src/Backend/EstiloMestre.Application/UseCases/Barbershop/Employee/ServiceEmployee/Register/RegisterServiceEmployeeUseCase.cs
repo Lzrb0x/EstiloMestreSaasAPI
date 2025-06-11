@@ -18,18 +18,18 @@ public class RegisterServiceEmployeeUseCase(
 ) : IRegisterServiceEmployeeUseCase
 {
     public async Task<ResponseRegisteredServiceEmployeeJson> Execute(
-        RequestRegisterServiceEmployeeJson request, long employeeId, long barbershopId
+        RequestRegisterServiceEmployeeJson request, long barbershopId, long employeeId
     )
     {
-        var barbershopServicesIds = await barbershopServiceRepository.GetBarbershopServicesIds(barbershopId);
+        var barbershopServicesIds = await barbershopServiceRepository
+            .GetBarbershopServicesIds(barbershopId);
 
-        //TODO:error aqui
         var barbershopServiceExist = barbershopServicesIds.Contains(request.BarbershopServiceId);
         if (!barbershopServiceExist)
-            throw new BusinessRuleException(ResourceMessagesExceptions.BARBERSHOP_SERVICE_WITH_ID_NOT_FOUND);
+            throw new NotFoundException(ResourceMessagesExceptions.BARBERSHOP_SERVICE_WITH_ID_NOT_FOUND);
 
-        var registeredBarbershopServicesByEmployeeId =
-            await employeeRepository.GetRegisteredBarbershopServicesByEmployeeId(employeeId);
+        var registeredBarbershopServicesByEmployeeId = await employeeRepository
+            .GetRegisteredBarbershopServicesByEmployeeId(employeeId);
 
         var employeeAlreadyPerformBarbershopService =
             registeredBarbershopServicesByEmployeeId.Contains(request.BarbershopServiceId);
@@ -38,7 +38,7 @@ public class RegisterServiceEmployeeUseCase(
 
 
         var employee = await employeeRepository.GetEmployeeById(employeeId);
-        if (employee is null) throw new BusinessRuleException("funcionário nao encontrado");
+        if (employee is null) throw new NotFoundException(ResourceMessagesExceptions.EMPLOYEE_NOT_FOUND);
 
         var serviceEmployee = mapper.Map<Domain.Entities.ServiceEmployee>(request);
         serviceEmployee.EmployeeId = employeeId;

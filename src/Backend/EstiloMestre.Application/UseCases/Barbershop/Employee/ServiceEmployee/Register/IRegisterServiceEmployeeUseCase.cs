@@ -6,6 +6,6 @@ namespace EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.
 public interface IRegisterServiceEmployeeUseCase
 {
     Task<ResponseRegisteredServiceEmployeeJson> Execute(
-        RequestRegisterServiceEmployeeJson request, long employeeId, long barbershopId
+        RequestRegisterServiceEmployeeJson request, long barbershopId, long employeeId
     );
 }

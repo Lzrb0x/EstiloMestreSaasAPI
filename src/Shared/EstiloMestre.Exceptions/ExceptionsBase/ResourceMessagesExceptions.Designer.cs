@@ -236,5 +236,11 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("EMPLOYEE_ID_INVALID_IN_ROUTE", resourceCulture);
             }
         }
+        
+        public static string EMPLOYEE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("EMPLOYEE_NOT_FOUND", resourceCulture);
+            }
+        }
     }
 }

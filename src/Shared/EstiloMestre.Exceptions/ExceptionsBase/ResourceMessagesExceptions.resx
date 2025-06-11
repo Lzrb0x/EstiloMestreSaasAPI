@@ -114,4 +114,7 @@
     <data name="EMPLOYEE_ID_INVALID_IN_ROUTE" xml:space="preserve">
         <value>Employee Id invalid in route.</value>
     </data>
+    <data name="EMPLOYEE_NOT_FOUND" xml:space="preserve">
+        <value>Employee not found.</value>
+    </data>
 </root>

@@ -10,7 +10,8 @@ public class UserController : EstiloMestreBaseController
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Post([FromServices] IRegisterUserUseCase useCase, [FromBody] RequestRegisterUserJson request)
+    public async Task<IActionResult> Post([FromServices] IRegisterUserUseCase useCase,
+        [FromBody] RequestRegisterUserJson request)
     {
         var userRegistered = await useCase.Execute(request);
 

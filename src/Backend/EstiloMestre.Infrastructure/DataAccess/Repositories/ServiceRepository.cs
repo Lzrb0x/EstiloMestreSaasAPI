@@ -11,12 +11,17 @@ public class ServiceRepository(EstiloMestreDbContext dbContext) : IServiceReposi
         await dbContext.Services.AddAsync(service);
     }
 
-    public async Task<bool> ExistServiceByName(string name)
+    public async Task<bool> ExistGlobalServiceByName(string name)
     {
         return await dbContext.Services.AsNoTracking().AnyAsync(s => s.Name.Equals(name));
     }
 
-    public async Task<HashSet<long>> GetServicesIds()
+    public async Task<IList<Service>> GetAllGlobalServices()
+    {
+        return await dbContext.Services.AsNoTracking().ToListAsync();
+    }
+
+    public async Task<HashSet<long>> GetGlobalServicesIds()
     {
         return await dbContext.Services.AsNoTracking().Select(s => s.Id).ToHashSetAsync();
     }

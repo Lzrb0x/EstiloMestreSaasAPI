@@ -27,7 +27,7 @@ public class RegisterServiceUseCase(IServiceRepository serviceRepository, IMappe
     {
         var result = await new ServiceValidator().ValidateAsync(request);
 
-        if (await serviceRepository.ExistServiceByName(request.Name))
+        if (await serviceRepository.ExistGlobalServiceByName(request.Name))
         {
             result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesExceptions.SERVICE_ALREADY_EXISTS));
         }

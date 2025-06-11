@@ -22,7 +22,7 @@ public class RegisterBarbershopServiceUseCase(
     {
         ValidadeRequest(request);
 
-        var globalServicesIds = await serviceRepository.GetServicesIds();
+        var globalServicesIds = await serviceRepository.GetGlobalServicesIds();
 
         if (!globalServicesIds.Contains(request.ServiceId))
             throw new BusinessRuleException(string.Format(ResourceMessagesExceptions.SERVICE_WITH_ID_NOT_FOUND,

@@ -1,4 +1,6 @@
+using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
+using EstiloMestre.Application.UseCases.Service.Get;
 using EstiloMestre.Application.UseCases.Service.Register;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
@@ -21,5 +23,17 @@ public class ServicesController : EstiloMestreBaseController
         var response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseGlobalServicesList), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetAll(
+        [FromServices] IGetAllGlobalServicesUseCase useCase
+    )
+    {
+        var response = await useCase.Execute();
+
+        return Ok(response);
     }
 }

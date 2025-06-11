@@ -24,7 +24,7 @@ public class RegisterBarbershopServiceListUseCase(
 
         var servicesDtoFiltered = request.BarbershopServices.DistinctBy(service => service.ServiceId).ToList();
 
-        var globalServicesIds = await serviceRepository.GetServicesIds();
+        var globalServicesIds = await serviceRepository.GetGlobalServicesIds();
 
         var serviceNotFound = servicesDtoFiltered.Where(s => !globalServicesIds.Contains(s.ServiceId)).ToList();
         if (serviceNotFound.Any())

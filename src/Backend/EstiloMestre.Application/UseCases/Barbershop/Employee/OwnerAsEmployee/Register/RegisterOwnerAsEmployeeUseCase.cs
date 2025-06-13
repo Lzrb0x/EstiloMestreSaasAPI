@@ -1,26 +1,22 @@
 using AutoMapper;
-using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Employee;
-using EstiloMestre.Domain.Repositories.User;
+using EstiloMestre.Domain.Services.ILoggedUser;
 using EstiloMestre.Exceptions.ExceptionsBase;
 
-namespace EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
+namespace EstiloMestre.Application.UseCases.Barbershop.Employee.OwnerAsEmployee.Register;
 
-public class RegisterEmployeeUseCase(
+public class RegisterOwnerAsEmployeeUseCase(
     IEmployeeRepository employeeRepository,
-    IUserRepository userRepository,
+    ILoggedUser loggedUser,
     IUnitOfWork unitOfWork,
-    IMapper mapper
-) : IRegisterEmployeeUseCase
+    IMapper mapper)
+    : IRegisterOwnerAsEmployeeUseCase
 {
-    public async Task<ResponseRegisteredEmployeeJson> Execute(RequestRegisterEmployeeJson request, long barbershopId)
+    public async Task<ResponseRegisteredEmployeeJson> Execute(long barbershopId)
     {
-        await ValidateRequest(request);
-
-        var user = await userRepository.GetByEmail(request.Email);
-        if (user is null) throw new NotFoundException(ResourceMessagesExceptions.USER_NOT_FOUND);
+        var user = await loggedUser.User();
 
         if (await employeeRepository.ExistRegisteredEmployeeWithUserIdAndBarbershopId(user.Id, barbershopId))
             throw new BusinessRuleException(ResourceMessagesExceptions.EMPLOYEE_ALREADY_REGISTERED_IN_THIS_BARBERSHOP);
@@ -37,14 +33,7 @@ public class RegisterEmployeeUseCase(
 
         await employeeRepository.Add(employee);
         await unitOfWork.Commit();
-
+        
         return mapper.Map<ResponseRegisteredEmployeeJson>(employee);
-    }
-
-    private static async Task ValidateRequest(RequestRegisterEmployeeJson request)
-    {
-        var resultValidator = await new RegisterEmployeeValidator().ValidateAsync(request);
-        if (resultValidator.IsValid is false)
-            throw new OnValidationException(resultValidator.Errors.Select(e => e.ErrorMessage).ToList());
     }
 }

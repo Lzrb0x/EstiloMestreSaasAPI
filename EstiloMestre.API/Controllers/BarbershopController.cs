@@ -1,5 +1,6 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.OwnerAsEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
@@ -80,6 +81,20 @@ public class BarbershopController : EstiloMestreBaseController
     )
     {
         var response = await useCase.Execute(request, barbershopId, employeeId);
+        return Created(string.Empty, response);
+    }
+
+    [OwnerByBarbershop]
+    [HttpPost]
+    [Route("{barbershopId:long}/employees/register-owner-as-employee")]
+    [ProducesResponseType(typeof(ResponseRegisteredEmployeeJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> RegisterOwnerAsEmployee(
+        [FromRoute] long barbershopId,
+        [FromServices] IRegisterOwnerAsEmployeeUseCase useCase
+    )
+    {
+        var response = await useCase.Execute(barbershopId);
         return Created(string.Empty, response);
     }
 }

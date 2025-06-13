@@ -4,6 +4,7 @@ using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Barbershop;
 using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Services.ILoggedUser;
+using EstiloMestre.Exceptions.ExceptionsBase;
 
 namespace EstiloMestre.Application.UseCases.Owner.Register;
 
@@ -16,9 +17,7 @@ public class RegisterOwnerUseCase(IOwnerRepository repository, ILoggedUser user,
 
         var owner = await repository.GetByUserId(loggedUser.Id);
         if (owner is not null)
-        {
-            return mapper.Map<ResponseRegisteredOwnerJson>(owner);
-        }
+            throw new BusinessRuleException(ResourceMessagesExceptions.USER_ALREADY_REGISTERED_AS_OWNER);
 
         owner = new Domain.Entities.Owner
         {

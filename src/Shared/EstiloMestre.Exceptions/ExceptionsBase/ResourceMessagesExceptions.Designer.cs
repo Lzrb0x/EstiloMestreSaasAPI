@@ -242,5 +242,11 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("EMPLOYEE_NOT_FOUND", resourceCulture);
             }
         }
+        
+        public static string USER_ALREADY_REGISTERED_AS_OWNER {
+            get {
+                return ResourceManager.GetString("USER_ALREADY_REGISTERED_AS_OWNER", resourceCulture);
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace EstiloMestre.API.Controllers;
 
 public class BarbershopController : EstiloMestreBaseController
 {
-    [AuthenticatedUser]
+    [Owner]
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]

@@ -4,6 +4,7 @@ using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Barbershop;
+using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Services.ILoggedUser;
 using EstiloMestre.Exceptions.ExceptionsBase;
 
@@ -11,7 +12,8 @@ namespace EstiloMestre.Application.UseCases.Barbershop.Register;
 
 public class RegisterBarbershopUseCase(
     IBarbershopRepository barbershopRepository,
-    IRegisterOwnerUseCase registerOwnerUseCase,
+    IOwnerRepository ownerRepository,
+    ILoggedUser loggedUser,
     IUnitOfWork unitOfWork,
     IMapper mapper
 ) : IRegisterBarbershopUseCase
@@ -20,10 +22,10 @@ public class RegisterBarbershopUseCase(
     {
         ValidateRequest(request);
 
-        var owner = await registerOwnerUseCase.Execute();
-
+        var user = await loggedUser.User();
+        var owner = await ownerRepository.GetByUserId(user.Id); //filter already validated 
         var barbershop = mapper.Map<Domain.Entities.Barbershop>(request);
-        barbershop.OwnerId = owner.Id;
+        barbershop.OwnerId = owner!.Id;
 
         await barbershopRepository.Add(barbershop);
         await unitOfWork.Commit();

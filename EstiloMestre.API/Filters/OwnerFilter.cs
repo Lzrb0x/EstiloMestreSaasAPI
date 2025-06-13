@@ -23,8 +23,9 @@ public class OwnerFilter(
         try
         {
             var token = tokenProvider.Value();
-
+            
             var userIdentifier = tokenValidator.ValidateAndGetUserIdentifier(token);
+            
             var userExist = await userRepository.ExistActiveUserWithIdentifier(userIdentifier);
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);

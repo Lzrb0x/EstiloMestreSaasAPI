@@ -1,7 +1,8 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
-using EstiloMestre.Application.UseCases.Barbershop.Employee.OwnerAsEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;

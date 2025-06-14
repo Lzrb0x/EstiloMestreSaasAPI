@@ -1,6 +1,6 @@
 using EstiloMestre.Communication.Responses;
 
-namespace EstiloMestre.Application.UseCases.Barbershop.Employee.OwnerAsEmployee.Register;
+namespace EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 
 public interface IRegisterOwnerAsEmployeeUseCase
 {

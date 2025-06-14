@@ -11,17 +11,6 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
         await dbContext.Employees.AddAsync(employee);
     }
 
-    public async Task<bool> ExistRegisteredEmployeeWithUserId(long userId)
-    {
-        return await dbContext.Employees.AsNoTracking().AnyAsync(e => e.UserId == userId && e.Active == true);
-    }
-
-    public Task<bool> ExistRegisteredEmployeeWithUserIdAndBarbershopId(long userId, long barbershopId)
-    {
-        return dbContext.Employees.AsNoTracking()
-           .AnyAsync(e => e.UserId == userId && e.Active == true && e.BarberShopId == barbershopId);
-    }
-
     public async Task<HashSet<long>> GetRegisteredBarbershopServicesByEmployeeId(long employeeId)
     {
         return await dbContext.Employees.Include(e => e.ServicesEmployee)
@@ -34,5 +23,11 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
     {
         return await dbContext.Employees.AsNoTracking()
            .FirstOrDefaultAsync(e => e.Id == employeeId && e.Active == true);
+    }
+
+    public async Task<Employee?> GetEmployeeByUserId(long userId)
+    {
+        return await dbContext.Employees.AsNoTracking()
+           .FirstOrDefaultAsync(e => e.UserId == userId && e.Active == true);
     }
 }

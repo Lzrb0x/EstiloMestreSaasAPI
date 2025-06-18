@@ -266,5 +266,11 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("PHONE_NUMBER_INVALID", resourceCulture);
             }
         }
+        
+        public static string USER_WITH_COMPLETE_PROFILE_ALREADY_EXISTS_WITH_PHONE {
+            get {
+                return ResourceManager.GetString("USER_WITH_COMPLETE_PROFILE_ALREADY_EXISTS_WITH_PHONE", resourceCulture);
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ public class RegisterEmployeeUseCase(
     {
         await ValidateRequest(request);
 
-        var user = await userRepository.GetByEmail(request.Email)
+        var user = await userRepository.GetUserByEmail(request.Email)
             ?? throw new NotFoundException(ResourceMessagesExceptions.USER_NOT_FOUND);
 
         return await employeeRegistrationHandler.RegisterEmployee(user.Id, barbershopId);

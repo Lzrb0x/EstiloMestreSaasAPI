@@ -7,17 +7,16 @@ namespace EstiloMestre.Infrastructure.DataAccess.Repositories;
 public class UserRepository(EstiloMestreDbContext context) : IUserRepository
 {
     public async Task Add(User user) => await context.Users.AddAsync(user);
-
-
+    
     public async Task<bool> ExistActiveUserWithEmail(string email)
     {
-        return await context.Users.AnyAsync(u => u.Email.Equals(email) && u.Active);
+        return await context.Users.AnyAsync(u => u.Email!.Equals(email) && u.Active);
     }
 
     public async Task<User?> GetByEmailAndPassword(string? email, string password)
     {
         return await context.Users.AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
+            .FirstOrDefaultAsync(u => u.Email!.Equals(email) && u.Password!.Equals(password));
     }
 
     public async Task<User?> ExistActiveUserWithIdentifier(Guid userIdentifier)
@@ -26,14 +25,20 @@ public class UserRepository(EstiloMestreDbContext context) : IUserRepository
             .FirstOrDefaultAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
     }
 
-    public async Task<bool> UserProfileIsComplete(Guid userIdentifier)
+    public async Task<bool> UserProfileIsCompleteByUserIdentifier(Guid userIdentifier)
     {
         return await context.Users.AsNoTracking()
             .AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.IsComplete);
     }
 
-    public async Task<User?> GetByEmail(string email)
+    public async Task<User?> GetUserByPhone(string phone)
+    { 
+        return await context.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Phone.Equals(phone) && u.Active);
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
     {
-        return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Active == true && u.Email.Equals(email));
+        return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Active == true && u.Email!.Equals(email));
     }
 }

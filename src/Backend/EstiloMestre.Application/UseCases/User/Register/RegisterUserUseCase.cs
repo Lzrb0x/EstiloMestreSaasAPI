@@ -10,15 +10,15 @@ using FluentValidation.Results;
 
 namespace EstiloMestre.Application.UseCases.User.Register.Complete;
 
-public class RegisterUserCompleteUseCase(
+public class RegisterUserUseCase(
     IUserRepository repository,
     IUnitOfWork uof,
     IMapper mapper,
     IPasswordEncripter passwordEncripter,
     IAccessTokenGenerator tokenGenerator)
-    : IRegisterUserCompleteUseCase
+    : IRegisterUserUseCase
 {
-    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterCompleteUserJson request)
+    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         await ValidateRequest(request);
 
@@ -40,20 +40,21 @@ public class RegisterUserCompleteUseCase(
         };
     }
 
-    private async Task ValidateRequest(RequestRegisterCompleteUserJson request)
+    private async Task ValidateRequest(RequestRegisterUserJson request)
     {
-        var validator = new RegisterUserCompleteValidator();
-        var result = await validator.ValidateAsync(request);
+        var validatorResult = await new RegisterUserValidator().ValidateAsync(request);
+
 
         var emailAlreadyExists = await repository.ExistActiveUserWithEmail(request.Email);
         if (emailAlreadyExists)
         {
-            result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesExceptions.EMAIL_ALREADY_EXISTS));
+            validatorResult.Errors.Add(new ValidationFailure(string.Empty,
+                ResourceMessagesExceptions.EMAIL_ALREADY_EXISTS));
         }
 
-        if (!result.IsValid)
+        if (!validatorResult.IsValid)
         {
-            throw new OnValidationException(result.Errors.Select(x => x.ErrorMessage).ToList());
+            throw new OnValidationException(validatorResult.Errors.Select(x => x.ErrorMessage).ToList());
         }
     }
 }

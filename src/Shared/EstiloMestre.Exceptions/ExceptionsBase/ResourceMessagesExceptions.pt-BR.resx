@@ -129,4 +129,7 @@
     <data name="PHONE_NUMBER_INVALID" xml:space="preserve">
         <value>Número de telefone inválido.</value>
     </data>
+    <data name="USER_WITH_COMPLETE_PROFILE_ALREADY_EXISTS_WITH_PHONE" xml:space="preserve">
+        <value>Este número está associado a um usuario com credenciais registradas. Faça login para acessar a conta.</value>
+    </data>
 </root>

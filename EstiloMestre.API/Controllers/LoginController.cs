@@ -1,5 +1,7 @@
 using EstiloMestre.API.Controllers.BaseController;
+using EstiloMestre.Application.UseCases.Login;
 using EstiloMestre.Application.UseCases.Login.DoLogin;
+using EstiloMestre.Application.UseCases.Login.PartialSession;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -16,5 +18,18 @@ public class LoginController : EstiloMestreBaseController
         var response = await useCase.Execute(request);
 
         return Ok(response);
+    }
+    
+    [HttpPost]
+    [Route("partial")]
+    [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> PartialSession(
+        [FromServices] IPartialSession completeUseCase,
+        [FromBody] RequestPartialSessionUserJson request)
+    {
+        var userRegistered = await completeUseCase.Execute(request);
+
+        return Created(string.Empty, userRegistered);
     }
 }

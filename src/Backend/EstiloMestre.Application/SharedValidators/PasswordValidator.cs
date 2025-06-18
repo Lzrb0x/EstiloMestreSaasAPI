@@ -23,7 +23,7 @@ public class PasswordValidator<T> : PropertyValidator<T, string>
         return true;
     }
 
-    public override string Name => "PasswordValidator";
+    public override string Name => nameof(PasswordValidator<T>);
 
     protected override string GetDefaultMessageTemplate(string errorCode) => "{ErrorMessage}";
 }

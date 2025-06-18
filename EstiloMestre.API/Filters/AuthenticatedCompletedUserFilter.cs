@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.API.Filters;
 
-public class AuthenticatedUserFilter(
+public class AuthenticatedCompletedUserFilter(
     IAccessTokenValidator tokenValidator,
     IUserRepository repository,
     ITokenProvider tokenProvider
@@ -24,6 +24,8 @@ public class AuthenticatedUserFilter(
             var userExist = await repository.ExistActiveUserWithIdentifier(userIdentifier);
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
+            if(!await repository.UserProfileIsComplete(userIdentifier))
+                throw new EstiloMestreException(ResourceMessagesExceptions.USER_PROFILE_NOT_COMPLETE);
         } catch (SecurityTokenExpiredException)
         {
             context.Result = new UnauthorizedObjectResult(

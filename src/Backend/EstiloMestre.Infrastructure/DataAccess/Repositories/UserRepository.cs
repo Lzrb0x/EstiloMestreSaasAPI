@@ -4,33 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EstiloMestre.Infrastructure.DataAccess.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(EstiloMestreDbContext context) : IUserRepository
 {
-    private readonly EstiloMestreDbContext _context;
-    public UserRepository(EstiloMestreDbContext context) => _context = context;
-
-    public async Task Add(User user) => await _context.Users.AddAsync(user);
+    public async Task Add(User user) => await context.Users.AddAsync(user);
 
 
     public async Task<bool> ExistActiveUserWithEmail(string email)
     {
-        return await _context.Users.AnyAsync(u => u.Email.Equals(email) && u.Active);
+        return await context.Users.AnyAsync(u => u.Email.Equals(email) && u.Active);
     }
 
     public async Task<User?> GetByEmailAndPassword(string? email, string password)
     {
-        return await _context.Users.AsNoTracking()
-           .FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
+        return await context.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
     }
 
     public async Task<User?> ExistActiveUserWithIdentifier(Guid userIdentifier)
     {
-        return await _context.Users.AsNoTracking()
-           .FirstOrDefaultAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
+        return await context.Users.AsNoTracking()
+            .FirstOrDefaultAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.Active);
+    }
+
+    public async Task<bool> UserProfileIsComplete(Guid userIdentifier)
+    {
+        return await context.Users.AsNoTracking()
+            .AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.IsComplete);
     }
 
     public async Task<User?> GetByEmail(string email)
     {
-        return await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Active == true && u.Email.Equals(email));
+        return await context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Active == true && u.Email.Equals(email));
     }
 }

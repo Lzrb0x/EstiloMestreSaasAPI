@@ -1,6 +1,5 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
-using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
@@ -98,4 +97,6 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(barbershopId);
         return Created(string.Empty, response);
     }
+    
+    
 }

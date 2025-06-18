@@ -120,4 +120,7 @@
     <data name="USER_ALREADY_REGISTERED_AS_OWNER" xml:space="preserve">
         <value>Usuário já registrado como dono.</value>
     </data>
+    <data name="USER_PROFILE_NOT_COMPLETED" xml:space="preserve">
+        <value>Perfil do usuário não está completo.</value>
+    </data>
 </root>

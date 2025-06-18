@@ -6,22 +6,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.Infrastructure.Security.Tokens.Access.Validator;
 
-public class JwtTokenValidator : JwtTokenHandler, IAccessTokenValidator
+public class JwtTokenValidator(string signingKey) : JwtTokenHandler, IAccessTokenValidator
 {
-    private readonly string _signingKey;
-
-    public JwtTokenValidator(string signingKey)
-    {
-        _signingKey = signingKey;
-    }
-
     public Guid ValidateAndGetUserIdentifier(string token)
     {
         var validationParameters = new TokenValidationParameters
         {
             ValidateIssuer = false,
             ValidateAudience = false,
-            IssuerSigningKey = SecurityKey(_signingKey),
+            IssuerSigningKey = SecurityKey(signingKey),
             ClockSkew = new TimeSpan(0)
         };
 

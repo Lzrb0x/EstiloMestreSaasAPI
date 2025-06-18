@@ -7,6 +7,7 @@ using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
+using EstiloMestre.Application.UseCases.Dashboard.ClientDashboard;
 using EstiloMestre.Application.UseCases.Login.DoLogin;
 using EstiloMestre.Application.UseCases.Owner.Register;
 using EstiloMestre.Application.UseCases.Service.Get;
@@ -38,6 +39,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterServiceEmployeeUseCase, RegisterServiceEmployeeUseCase>();
         services.AddScoped<IGetAllGlobalServicesUseCase, GetAllGlobalServicesUseCase>();
         services.AddScoped<IRegisterOwnerAsEmployeeUseCase, RegisterOwnerAsEmployeeUseCase>();
+        services.AddScoped<IGetClientDashboardUseCase, GetClientDashboardUseCase>();
+        
     }
     
     private static void AddHandlers(IServiceCollection services)

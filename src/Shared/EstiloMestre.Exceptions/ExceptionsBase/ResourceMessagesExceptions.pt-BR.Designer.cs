@@ -248,5 +248,11 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("USER_ALREADY_REGISTERED_AS_OWNER", resourceCulture);
             }
         }
+        
+        public static string USER_PROFILE_NOT_COMPLETED {
+            get {
+                return ResourceManager.GetString("USER_PROFILE_NOT_COMPLETED", resourceCulture);
+            }
+        }
     }
 }

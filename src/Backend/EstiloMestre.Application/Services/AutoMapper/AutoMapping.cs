@@ -36,5 +36,8 @@ public class AutoMapping : Profile
         CreateMap<Owner, ResponseRegisteredOwnerJson>();
         CreateMap<ServiceEmployee, ResponseRegisteredServiceEmployeeJson>();
         CreateMap<Service, ResponseGlobalService>();
+        CreateMap<Barbershop, ResponseShortBarbershopJson>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.BarbershopName))
+            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
     }
 }

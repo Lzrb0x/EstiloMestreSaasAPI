@@ -15,7 +15,8 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ResourceMessagesExceptions {
-        
+        public static string USER_PROFILE_NOT_COMPLETE;
+
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
@@ -246,6 +247,12 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
         public static string USER_ALREADY_REGISTERED_AS_OWNER {
             get {
                 return ResourceManager.GetString("USER_ALREADY_REGISTERED_AS_OWNER", resourceCulture);
+            }
+        }
+        
+        public static string USER_PROFILE_NOT_COMPLETED {
+            get {
+                return ResourceManager.GetString("USER_PROFILE_NOT_COMPLETED", resourceCulture);
             }
         }
     }

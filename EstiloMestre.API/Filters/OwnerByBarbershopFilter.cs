@@ -4,6 +4,7 @@ using EstiloMestre.Domain.Repositories.Barbershop;
 using EstiloMestre.Domain.Repositories.User;
 using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Exceptions.ExceptionsBase;
+using EstiloMestre.Infrastructure.DataAccess.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EstiloMestre.API.Controllers;
 
-[AuthenticatedUser]
+[AuthenticatedCompletedUser]
 public class OwnerController : EstiloMestreBaseController
 {
     [HttpPost]

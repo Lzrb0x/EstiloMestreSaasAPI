@@ -10,7 +10,9 @@ namespace EstiloMestre.API.Controllers;
 public class UserController : EstiloMestreBaseController
 {
     [HttpPost]
+    [Route("complete-profile")]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> RegisterUserComplete(
         [FromServices] IRegisterUserCompleteUseCase completeUseCase,
         [FromBody] RequestRegisterCompleteUserJson request)

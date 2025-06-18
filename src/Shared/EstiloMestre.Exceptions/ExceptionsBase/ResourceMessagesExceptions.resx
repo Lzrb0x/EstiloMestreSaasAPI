@@ -123,4 +123,10 @@
     <data name="USER_PROFILE_NOT_COMPLETED" xml:space="preserve">
         <value>User profile is not completed.</value>
     </data>
+    <data name="PHONE_NUMBER_EMPTY" xml:space="preserve">
+        <value>Phone number cannot be empty</value>
+    </data>
+    <data name="PHONE_NUMBER_INVALID" xml:space="preserve">
+        <value>Invalid Phone number.</value>
+    </data>
 </root>

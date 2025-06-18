@@ -254,5 +254,17 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("USER_PROFILE_NOT_COMPLETED", resourceCulture);
             }
         }
+        
+        public static string PHONE_NUMBER_EMPTY {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_EMPTY", resourceCulture);
+            }
+        }
+        
+        public static string PHONE_NUMBER_INVALID {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_INVALID", resourceCulture);
+            }
+        }
     }
 }

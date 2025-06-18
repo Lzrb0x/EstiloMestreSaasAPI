@@ -25,7 +25,7 @@ public class AuthenticatedCompletedUserFilter(
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
             if(!await repository.UserProfileIsComplete(userIdentifier))
-                throw new EstiloMestreException(ResourceMessagesExceptions.USER_PROFILE_NOT_COMPLETE);
+                throw new EstiloMestreException(ResourceMessagesExceptions.USER_PROFILE_NOT_COMPLETED);
         } catch (SecurityTokenExpiredException)
         {
             context.Result = new UnauthorizedObjectResult(

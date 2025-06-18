@@ -15,7 +15,8 @@ public class AutoMapping : Profile
 
     private void RequestToDomain()
     {
-        CreateMap<RequestRegisterUserJson, User>().ForMember(dest => dest.Password, opt => opt.Ignore());
+        CreateMap<RequestRegisterCompleteUserJson, User>()
+            .ForMember(dest => dest.Password, opt => opt.Ignore());
         CreateMap<RequestRegisterBarbershopJson, Barbershop>();
         CreateMap<RequestServiceJson, Service>();
         CreateMap<RequestBarbershopServiceJson, BarbershopService>()

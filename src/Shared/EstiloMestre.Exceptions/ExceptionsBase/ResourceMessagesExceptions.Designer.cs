@@ -15,8 +15,7 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ResourceMessagesExceptions {
-        public static string USER_PROFILE_NOT_COMPLETE;
-
+        
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
@@ -253,6 +252,18 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
         public static string USER_PROFILE_NOT_COMPLETED {
             get {
                 return ResourceManager.GetString("USER_PROFILE_NOT_COMPLETED", resourceCulture);
+            }
+        }
+        
+        public static string PHONE_NUMBER_EMPTY {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_EMPTY", resourceCulture);
+            }
+        }
+        
+        public static string PHONE_NUMBER_INVALID {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER_INVALID", resourceCulture);
             }
         }
     }

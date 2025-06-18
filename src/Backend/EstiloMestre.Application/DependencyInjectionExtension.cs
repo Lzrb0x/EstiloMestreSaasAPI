@@ -4,7 +4,6 @@ using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmpl
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
-using EstiloMestre.Application.UseCases.Barbershop.Service.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
 using EstiloMestre.Application.UseCases.Dashboard.ClientDashboard;
@@ -12,7 +11,7 @@ using EstiloMestre.Application.UseCases.Login.DoLogin;
 using EstiloMestre.Application.UseCases.Owner.Register;
 using EstiloMestre.Application.UseCases.Service.Get;
 using EstiloMestre.Application.UseCases.Service.Register;
-using EstiloMestre.Application.UseCases.User.Register;
+using EstiloMestre.Application.UseCases.User.Register.Complete;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EstiloMestre.Application;
@@ -28,7 +27,7 @@ public static class DependencyInjectionExtension
 
     private static void AddUseCases(IServiceCollection services)
     {
-        services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        services.AddScoped<IRegisterUserCompleteUseCase, RegisterUserCompleteUseCase>();
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         services.AddScoped<IRegisterBarbershopUseCase, RegisterBarbershopUseCase>();
         services.AddScoped<IRegisterOwnerUseCase, RegisterOwnerUseCase>();

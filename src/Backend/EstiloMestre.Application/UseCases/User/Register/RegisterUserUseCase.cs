@@ -8,7 +8,7 @@ using EstiloMestre.Domain.Security.Tokens;
 using EstiloMestre.Exceptions.ExceptionsBase;
 using FluentValidation.Results;
 
-namespace EstiloMestre.Application.UseCases.User.Register.Complete;
+namespace EstiloMestre.Application.UseCases.User.Register;
 
 public class RegisterUserUseCase(
     IUserRepository repository,

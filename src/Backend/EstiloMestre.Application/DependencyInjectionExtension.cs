@@ -13,7 +13,6 @@ using EstiloMestre.Application.UseCases.Owner.Register;
 using EstiloMestre.Application.UseCases.Service.Get;
 using EstiloMestre.Application.UseCases.Service.Register;
 using EstiloMestre.Application.UseCases.User.Register;
-using EstiloMestre.Application.UseCases.User.Register.Complete;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EstiloMestre.Application;

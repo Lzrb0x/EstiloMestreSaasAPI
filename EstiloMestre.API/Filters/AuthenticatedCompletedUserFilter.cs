@@ -10,7 +10,7 @@ namespace EstiloMestre.API.Filters;
 
 public class AuthenticatedCompletedUserFilter(
     IAccessTokenValidator tokenValidator,
-    IUserRepository repository,
+    IUserRepository userRepository,
     ITokenProvider tokenProvider
 ) : IAsyncAuthorizationFilter
 {
@@ -19,12 +19,12 @@ public class AuthenticatedCompletedUserFilter(
         try
         {
             var token = tokenProvider.Value();
-
             var userIdentifier = tokenValidator.ValidateAndGetUserIdentifier(token);
-            var userExist = await repository.ExistActiveUserWithIdentifier(userIdentifier);
+            
+            var userExist = await userRepository.ExistActiveUserWithIdentifier(userIdentifier);
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
-            if(!await repository.UserProfileIsCompleteByUserIdentifier(userIdentifier))
+            if(!await userRepository.UserProfileIsCompleteByUserIdentifier(userIdentifier))
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_PROFILE_NOT_COMPLETED);
         } catch (SecurityTokenExpiredException)
         {

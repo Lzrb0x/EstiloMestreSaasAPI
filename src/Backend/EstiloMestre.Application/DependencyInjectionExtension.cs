@@ -12,6 +12,7 @@ using EstiloMestre.Application.UseCases.Login.PartialSession;
 using EstiloMestre.Application.UseCases.Owner.Register;
 using EstiloMestre.Application.UseCases.Service.Get;
 using EstiloMestre.Application.UseCases.Service.Register;
+using EstiloMestre.Application.UseCases.User.CompleteProfile;
 using EstiloMestre.Application.UseCases.User.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,8 +42,9 @@ public static class DependencyInjectionExtension
         services.AddScoped<IRegisterOwnerAsEmployeeUseCase, RegisterOwnerAsEmployeeUseCase>();
         services.AddScoped<IGetClientDashboardUseCase, GetClientDashboardUseCase>();
         services.AddScoped<IPartialSession, PartialSession>();
+        services.AddScoped<ICompletePartialUserProfileUseCase, CompletePartialUserProfileUseCase>();
     }
-    
+
     private static void AddHandlers(IServiceCollection services)
     {
         services.AddScoped<EmployeeRegistrationHandler>();
@@ -50,9 +52,7 @@ public static class DependencyInjectionExtension
 
     private static void AddAutoMapper(IServiceCollection services)
     {
-        services.AddScoped(_ => new AutoMapper.MapperConfiguration(options =>
-        {
-            options.AddProfile(new AutoMapping());
-        }).CreateMapper());
+        services.AddScoped(_ =>
+            new AutoMapper.MapperConfiguration(options => { options.AddProfile(new AutoMapping()); }).CreateMapper());
     }
 }

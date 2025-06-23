@@ -22,4 +22,4 @@ public class GetClientDashboardUseCase(
 
 
 //TODO: for now, only return the first five barbershops.
-//After, return the first five barbershops that the user scheduled an appointment with.
+//After, return the first five barbershops that the user scheduled an appointment with OR Top 5 nearest barbershops

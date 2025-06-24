@@ -13,4 +13,6 @@ public class User : EntityBase
   public string Phone { get; set; } = string.Empty;
   
   public bool IsComplete { get; set; }
+  
+  public IList<Booking> Bookings { get; set; } = [];
 }

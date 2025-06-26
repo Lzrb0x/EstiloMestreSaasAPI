@@ -13,5 +13,5 @@ public class EmployeeWorkingHour : EntityBase
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
     
-    public bool IsDayOff { get; set; } = false;
+    public bool IsDayOff { get; set; } 
 }

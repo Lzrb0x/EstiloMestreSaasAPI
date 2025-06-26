@@ -1,5 +1,6 @@
 using AutoMapper;
 using EstiloMestre.Communication.Requests;
+using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories.Barbershop;
 
 namespace EstiloMestre.Application.UseCases.Dashboard.ClientDashboard;

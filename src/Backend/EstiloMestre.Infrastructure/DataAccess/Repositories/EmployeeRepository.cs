@@ -25,6 +25,13 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
            .FirstOrDefaultAsync(e => e.Id == employeeId && e.Active == true);
     }
 
+    public async Task<bool> ExistEmployeeById(long employeeId)
+    {
+        return await dbContext.Employees.AsNoTracking()
+            .AnyAsync(e => e.Id == employeeId && e.Active == true);
+    }
+
+
     public async Task<Employee?> GetEmployeeByUserId(long userId)
     {
         return await dbContext.Employees.AsNoTracking()

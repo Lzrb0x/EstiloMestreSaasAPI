@@ -1,4 +1,4 @@
-namespace EstiloMestre.Communication.Requests;
+namespace EstiloMestre.Communication.Responses;
 
 public class ResponseShortBarbershopJson
 {

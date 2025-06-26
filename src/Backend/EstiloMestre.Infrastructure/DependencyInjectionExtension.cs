@@ -3,6 +3,7 @@ using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Barbershop;
 using EstiloMestre.Domain.Repositories.BarbershopService;
 using EstiloMestre.Domain.Repositories.Employee;
+using EstiloMestre.Domain.Repositories.Employee.BusinessHour;
 using EstiloMestre.Domain.Repositories.Owner;
 using EstiloMestre.Domain.Repositories.Service;
 using EstiloMestre.Domain.Repositories.ServiceEmployee;
@@ -48,6 +49,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IBarbershopServiceRepository, BarbershopServiceRepository>();
         services.AddScoped<IServiceEmployeeRepository, ServiceEmployeeRepository>();
+        services.AddScoped<IEmployeeWorkingHourRepository, EmployeeWorkingHourRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)

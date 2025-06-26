@@ -1,5 +1,6 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
@@ -97,6 +98,19 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(barbershopId);
         return Created(string.Empty, response);
     }
-    
-    
+
+    [OwnerOrEmployeeByBarbershop]
+    [HttpPost]
+    [Route("{barbershopId:long}/employees/{employeeId:long}/working-hours")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> RegisterEmployeeWorkingHours(
+        [FromRoute] long barbershopId, [FromRoute] long employeeId,
+        [FromBody] RequestEmployeeWorkingHourListJson request,
+        [FromServices] IRegisterWorkingHourUseCase useCase
+    )
+    {
+        await useCase.Execute(request, employeeId);
+        return NoContent();
+    }
 }

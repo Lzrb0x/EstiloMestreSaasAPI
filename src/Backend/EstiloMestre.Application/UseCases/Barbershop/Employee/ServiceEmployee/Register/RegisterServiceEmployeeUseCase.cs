@@ -21,6 +21,9 @@ public class RegisterServiceEmployeeUseCase(
         RequestRegisterServiceEmployeeJson request, long barbershopId, long employeeId
     )
     {
+        if (!await employeeRepository.ExistEmployeeById(employeeId))
+            throw new NotFoundException(ResourceMessagesExceptions.EMPLOYEE_NOT_FOUND);
+
         var barbershopServicesIds = await barbershopServiceRepository
             .GetBarbershopServicesIds(barbershopId);
 
@@ -35,10 +38,6 @@ public class RegisterServiceEmployeeUseCase(
             registeredBarbershopServicesByEmployeeId.Contains(request.BarbershopServiceId);
         if (employeeAlreadyPerformBarbershopService)
             throw new BusinessRuleException(ResourceMessagesExceptions.EMPLOYEE_SERVICE_ALREADY_REGISTERED);
-
-
-        var employee = await employeeRepository.GetEmployeeById(employeeId);
-        if (employee is null) throw new NotFoundException(ResourceMessagesExceptions.EMPLOYEE_NOT_FOUND);
 
         var serviceEmployee = mapper.Map<Domain.Entities.ServiceEmployee>(request);
         serviceEmployee.EmployeeId = employeeId;

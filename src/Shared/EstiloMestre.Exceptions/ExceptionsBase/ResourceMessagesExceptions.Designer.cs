@@ -272,5 +272,41 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
                 return ResourceManager.GetString("USER_WITH_COMPLETE_PROFILE_ALREADY_EXISTS_WITH_PHONE", resourceCulture);
             }
         }
+        
+        public static string AT_LEAST_ONE_WORKING_HOURS_REQUIRED {
+            get {
+                return ResourceManager.GetString("AT_LEAST_ONE_WORKING_HOURS_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string INVALID_DAY_OF_WEEK {
+            get {
+                return ResourceManager.GetString("INVALID_DAY_OF_WEEK", resourceCulture);
+            }
+        }
+        
+        public static string START_TIME_MUST_BE_LESS_THAN_END_TIME {
+            get {
+                return ResourceManager.GetString("START_TIME_MUST_BE_LESS_THAN_END_TIME", resourceCulture);
+            }
+        }
+        
+        public static string INVALID_WORKING_HOUR_CONFIGURATION {
+            get {
+                return ResourceManager.GetString("INVALID_WORKING_HOUR_CONFIGURATION", resourceCulture);
+            }
+        }
+        
+        public static string CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS {
+            get {
+                return ResourceManager.GetString("CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS", resourceCulture);
+            }
+        }
+        
+        public static string WORKING_HOURS_OVERLAP {
+            get {
+                return ResourceManager.GetString("WORKING_HOURS_OVERLAP", resourceCulture);
+            }
+        }
     }
 }

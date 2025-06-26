@@ -132,4 +132,22 @@
     <data name="USER_WITH_COMPLETE_PROFILE_ALREADY_EXISTS_WITH_PHONE" xml:space="preserve">
         <value>Este número está associado a um usuario com credenciais registradas. Faça login para acessar a conta.</value>
     </data>
+    <data name="AT_LEAST_ONE_WORKING_HOURS_REQUIRED" xml:space="preserve">
+        <value>É necessário pelo menos um horário de serviço.</value>
+    </data>
+    <data name="INVALID_DAY_OF_WEEK" xml:space="preserve">
+        <value>Dia da semana deve ser um valor válido.</value>
+    </data>
+    <data name="START_TIME_MUST_BE_LESS_THAN_END_TIME" xml:space="preserve">
+        <value>o horário de início deve ser mais cedo que o horário de término.</value>
+    </data>
+    <data name="INVALID_WORKING_HOUR_CONFIGURATION" xml:space="preserve">
+        <value>Horário de inicio e fim devem estar vazios se for um dia de folga, e ambos devem ser preenchidos se for um dia útil.</value>
+    </data>
+    <data name="CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS" xml:space="preserve">
+        <value>Não é possivel ter folga e trabalhar no mesmo dia.</value>
+    </data>
+    <data name="WORKING_HOURS_OVERLAP" xml:space="preserve">
+        <value>A ação não foi possível porque há sobreposição de horários.</value>
+    </data>
 </root>

@@ -12,7 +12,7 @@ public class Version0000002 : VersionBase
             .AsDecimal(18, 2)
             .NotNullable()
             .WithColumn("Duration")
-            .AsTime()
+            .AsCustom("TIME")
             .NotNullable()
             .WithColumn("DescriptionOverride")
             .AsString(255)

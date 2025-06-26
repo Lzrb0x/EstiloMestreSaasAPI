@@ -15,7 +15,8 @@ public class Booking : EntityBase
     public Barbershop Barbershop { get; set; } = null!;
 
     public long BarbershopServiceId { get; set; }
-    public BarbershopService BarbershopService { get; set; } = null!;
+    public BarbershopService BarbershopService { get; set; } = null!; //acho que aqui deve ser EmployeeService
+                                                                      //e nao BarbershopService
 
     public DateOnly Date { get; set; }
     public TimeOnly StartTime { get; set; }

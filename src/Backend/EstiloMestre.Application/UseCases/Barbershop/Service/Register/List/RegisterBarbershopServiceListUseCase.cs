@@ -22,11 +22,13 @@ public class RegisterBarbershopServiceListUseCase(
     {
         ValidateRequest(request);
 
-        var servicesDtoFiltered = request.BarbershopServices.DistinctBy(service => service.ServiceId).ToList();
+        var servicesDtoFiltered = request.BarbershopServices
+            .DistinctBy(service => service.ServiceId).ToList();
 
         var globalServicesIds = await serviceRepository.GetGlobalServicesIds();
 
-        var serviceNotFound = servicesDtoFiltered.Where(s => !globalServicesIds.Contains(s.ServiceId)).ToList();
+        var serviceNotFound = servicesDtoFiltered
+            .Where(s => !globalServicesIds.Contains(s.ServiceId)).ToList();
         if (serviceNotFound.Any())
         {
             var notFoundIds = string.Join(", ", serviceNotFound.Select(s => s.ServiceId));
@@ -35,13 +37,13 @@ public class RegisterBarbershopServiceListUseCase(
         }
 
         var barbershopServicesAlreadyRegistered = await barbershopServicesRepository
-           .GetGlobalServicesAlreadyRegisteredOnBarbershop(barbershopId);
-        
+            .GetGlobalServicesAlreadyRegisteredOnBarbershop(barbershopId);
+
         if (barbershopServicesAlreadyRegistered.Any())
         {
             var servicesAlreadyRegistered = servicesDtoFiltered
-               .Where(s => barbershopServicesAlreadyRegistered.Contains(s.ServiceId))
-               .ToList();
+                .Where(s => barbershopServicesAlreadyRegistered.Contains(s.ServiceId))
+                .ToList();
 
             if (servicesAlreadyRegistered.Any())
             {
@@ -52,10 +54,7 @@ public class RegisterBarbershopServiceListUseCase(
         }
 
         var barbershopServices = mapper.Map<List<BarbershopService>>(servicesDtoFiltered);
-        barbershopServices.ForEach(service =>
-        {
-            service.BarbershopId = barbershopId;
-        });
+        barbershopServices.ForEach(service => { service.BarbershopId = barbershopId; });
 
         await barbershopServicesRepository.AddRange(barbershopServices);
         await unitOfWork.Commit();
@@ -65,7 +64,8 @@ public class RegisterBarbershopServiceListUseCase(
             BarbershopServices = mapper.Map<List<ResponseRegisteredBarbershopServiceJson>>(barbershopServices)
         };
     }
-
+    
+    
     private static void ValidateRequest(RequestRegisterBarbershopServiceListJson request)
     {
         var result = new RegisterBarbershopServiceListValidator().Validate(request);

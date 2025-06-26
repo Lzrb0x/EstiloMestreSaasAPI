@@ -144,10 +144,16 @@
     <data name="INVALID_WORKING_HOUR_CONFIGURATION" xml:space="preserve">
         <value>Horário de inicio e fim devem estar vazios se for um dia de folga, e ambos devem ser preenchidos se for um dia útil.</value>
     </data>
-    <data name="CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS" xml:space="preserve">
-        <value>Não é possivel ter folga e trabalhar no mesmo dia.</value>
+    <data name="CANNOT_HAVE_DAY_OFF_WITH_WORKING_HOURS" xml:space="preserve">
+        <value>Não pode haver folga com horários.</value>
     </data>
     <data name="WORKING_HOURS_OVERLAP" xml:space="preserve">
         <value>A ação não foi possível porque há sobreposição de horários.</value>
+    </data>
+    <data name="WORKING_HOUR_OVERRIDE_DATE_REQUIRED" xml:space="preserve">
+        <value>É necessária a data de substituição do horário de trabalho.</value>
+    </data>
+    <data name="DATE_IN_THE_PAST" xml:space="preserve">
+        <value>a data deve ser posterior a hoje.</value>
     </data>
 </root>

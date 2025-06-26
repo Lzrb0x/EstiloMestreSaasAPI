@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Backend\EstiloMestre.Domain\EstiloMestre.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

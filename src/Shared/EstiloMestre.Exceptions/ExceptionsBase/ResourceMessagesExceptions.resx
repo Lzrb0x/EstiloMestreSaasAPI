@@ -144,10 +144,16 @@
     <data name="INVALID_WORKING_HOUR_CONFIGURATION" xml:space="preserve">
         <value>Start time and end time must both be empty if its a day off. and both mus be filled if itsa a working day.</value>
     </data>
-    <data name="CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS" xml:space="preserve">
-        <value>it is not possible to have time off and work on the same day.</value>
+    <data name="CANNOT_HAVE_DAY_OFF_WITH_WORKING_HOURS" xml:space="preserve">
+        <value>There can be no slack with schedules.</value>
     </data>
     <data name="WORKING_HOURS_OVERLAP" xml:space="preserve">
         <value>The action was not possible because there is overlapping schedules.</value>
+    </data>
+    <data name="WORKING_HOUR_OVERRIDE_DATE_REQUIRED" xml:space="preserve">
+        <value>Working hour override date is required.</value>
+    </data>
+    <data name="DATE_IN_THE_PAST" xml:space="preserve">
+        <value>the date must be after today.</value>
     </data>
 </root>

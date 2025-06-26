@@ -23,7 +23,9 @@ public class AutoMapping : Profile
             .ForMember(dest => dest.BarbershopId, opt => opt.Ignore());
         CreateMap<RequestRegisterServiceEmployeeJson, ServiceEmployee>()
             .ForMember(dest => dest.EmployeeId, opt => opt.Ignore());
-        CreateMap<RequestEmployeeWorkingHourJson, EmployeeWorkingHour>()
+        CreateMap<RequestWorkingHourJson, EmployeeWorkingHour>()
+            .ForMember(dest => dest.EmployeeId, opt => opt.Ignore());
+        CreateMap<RequestWorkingHourOverrideJson, EmployeeWorkingHourOverride>()
             .ForMember(dest => dest.EmployeeId, opt => opt.Ignore());
     }
 

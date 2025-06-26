@@ -1,6 +1,6 @@
 namespace EstiloMestre.Communication.Requests;
 
-public class RequestEmployeeWorkingHourJson
+public class RequestWorkingHourJson
 {
     public DayOfWeek DayOfWeek { get; set; }
     public TimeOnly StartTime { get; set; }

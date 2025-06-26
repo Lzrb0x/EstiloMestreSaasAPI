@@ -1,17 +1,18 @@
 using AutoMapper;
 using EstiloMestre.Communication.Requests;
+using EstiloMestre.Domain.Entities;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Employee;
 using EstiloMestre.Domain.Repositories.Employee.BusinessHour;
 using EstiloMestre.Exceptions.ExceptionsBase;
 
-namespace EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Register;
+namespace EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
 
-public class RegisterWorkingHourUseCase(
+public class SetWorkingHourUseCase(
     IEmployeeRepository employeeRepository,
     IMapper mapper,
-    IEmployeeWorkingHourRepository workingHourRepository,
-    IUnitOfWork unitOfWork) : IRegisterWorkingHourUseCase
+    IWorkingHourRepository workingHourRepository,
+    IUnitOfWork unitOfWork) : ISetWorkingHourUseCase
 {
     public async Task Execute(RequestEmployeeWorkingHourListJson request, long employeeId)
     {
@@ -20,7 +21,7 @@ public class RegisterWorkingHourUseCase(
         if (!await employeeRepository.ExistEmployeeById(employeeId))
             throw new NotFoundException(ResourceMessagesExceptions.EMPLOYEE_NOT_FOUND);
 
-        var newWorkingHours = mapper.Map<List<Domain.Entities.EmployeeWorkingHour>>(request.WorkingHours);
+        var newWorkingHours = mapper.Map<List<EmployeeWorkingHour>>(request.WorkingHours);
 
         var existingWorkingHours = await workingHourRepository.GetByEmployeeId(employeeId);
 
@@ -32,8 +33,8 @@ public class RegisterWorkingHourUseCase(
         await unitOfWork.Commit();
     }
 
-    private static void ValidateScheduleConflicts(List<Domain.Entities.EmployeeWorkingHour> newWorkingHours,
-        List<Domain.Entities.EmployeeWorkingHour> existingWorkingHours)
+    private static void ValidateScheduleConflicts(List<EmployeeWorkingHour> newWorkingHours,
+        List<EmployeeWorkingHour> existingWorkingHours)
     {
         var allHours = newWorkingHours.Concat(existingWorkingHours);
         var hoursGroupedByDay = allHours.GroupBy(h => h.DayOfWeek);
@@ -46,7 +47,7 @@ public class RegisterWorkingHourUseCase(
             {
                 case true when hasWorkingHours:
                     throw new BusinessRuleException(ResourceMessagesExceptions
-                        .CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS);
+                        .CANNOT_HAVE_DAY_OFF_WITH_WORKING_HOURS);
                 case true:
                     continue;
             }

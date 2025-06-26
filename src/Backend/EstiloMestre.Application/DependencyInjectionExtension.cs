@@ -1,6 +1,7 @@
 using EstiloMestre.Application.Services.AutoMapper;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour;
-using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Register;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHourOverride.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
@@ -45,7 +46,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetClientDashboardUseCase, GetClientDashboardUseCase>();
         services.AddScoped<IPartialSession, PartialSession>();
         services.AddScoped<ICompletePartialUserProfileUseCase, CompletePartialUserProfileUseCase>();
-        services.AddScoped<IRegisterWorkingHourUseCase, RegisterWorkingHourUseCase>();
+        services.AddScoped<ISetWorkingHourUseCase, SetWorkingHourUseCase>();
+        services.AddScoped<ISetWorkingHourOverrideUseCase, SetWorkingHourOverrideUseCase>();
     }
 
     private static void AddHandlers(IServiceCollection services)

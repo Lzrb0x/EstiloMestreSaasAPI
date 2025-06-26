@@ -2,7 +2,7 @@ using EstiloMestre.Communication.Requests;
 using EstiloMestre.Exceptions.ExceptionsBase;
 using FluentValidation;
 
-namespace EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Register;
+namespace EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
 
 public class WorkingHourListValidator : AbstractValidator<RequestEmployeeWorkingHourListJson>
 {

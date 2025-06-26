@@ -1,6 +1,7 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
-using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Register;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHourOverride.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
@@ -99,15 +100,30 @@ public class BarbershopController : EstiloMestreBaseController
         return Created(string.Empty, response);
     }
 
-    [OwnerOrEmployeeByBarbershop]
+    //[OwnerOrEmployeeByBarbershop]
     [HttpPost]
     [Route("{barbershopId:long}/employees/{employeeId:long}/working-hours")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> RegisterEmployeeWorkingHours(
+    public async Task<IActionResult> EmployeeWorkingHours(
         [FromRoute] long barbershopId, [FromRoute] long employeeId,
         [FromBody] RequestEmployeeWorkingHourListJson request,
-        [FromServices] IRegisterWorkingHourUseCase useCase
+        [FromServices] ISetWorkingHourUseCase useCase
+    )
+    {
+        await useCase.Execute(request, employeeId);
+        return NoContent();
+    }
+    
+    //[OwnerOrEmployeeByBarbershop]
+    [HttpPost]
+    [Route("{barbershopId:long}/employees/{employeeId:long}/override-working-hours")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> OverrideEmployeeWorkingHours(
+        [FromRoute] long barbershopId, [FromRoute] long employeeId,
+        [FromBody] RequestWorkingHourOverrideJson request,
+        [FromServices] ISetWorkingHourOverrideUseCase useCase
     )
     {
         await useCase.Execute(request, employeeId);

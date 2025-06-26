@@ -49,7 +49,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IBarbershopServiceRepository, BarbershopServiceRepository>();
         services.AddScoped<IServiceEmployeeRepository, ServiceEmployeeRepository>();
-        services.AddScoped<IEmployeeWorkingHourRepository, EmployeeWorkingHourRepository>();
+        services.AddScoped<IWorkingHourRepository, WorkingHourRepository>();
+        services.AddScoped<IWorkingHourOverrideRepository, WorkingHourOverrideRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)

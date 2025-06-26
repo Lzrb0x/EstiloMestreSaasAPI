@@ -2,5 +2,5 @@ namespace EstiloMestre.Communication.Requests;
 
 public class RequestEmployeeWorkingHourListJson
 {
-    public List<RequestEmployeeWorkingHourJson> WorkingHours { get; set; } = [];
+    public List<RequestWorkingHourJson> WorkingHours { get; set; } = [];
 }

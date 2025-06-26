@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EstiloMestre.Infrastructure.DataAccess.Repositories;
 
-public class EmployeeWorkingHourRepository(EstiloMestreDbContext dbContext) : IEmployeeWorkingHourRepository
+public class WorkingHourRepository(EstiloMestreDbContext dbContext) : IWorkingHourRepository
 {
     public async Task AddRange(List<EmployeeWorkingHour> employeeWorkingHours)
     {

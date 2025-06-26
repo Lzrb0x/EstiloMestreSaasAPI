@@ -2,8 +2,8 @@ using EstiloMestre.Domain.Entities;
 
 namespace EstiloMestre.Domain.Repositories.Employee.BusinessHour;
 
-public interface IEmployeeWorkingHourRepository
+public interface IWorkingHourRepository
 {
-   Task AddRange(List<Entities.EmployeeWorkingHour> employeeWorkingHours);
+   Task AddRange(List<EmployeeWorkingHour> employeeWorkingHours);
    Task<List<EmployeeWorkingHour>> GetByEmployeeId(long employeeId);
 }

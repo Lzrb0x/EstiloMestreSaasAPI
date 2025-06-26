@@ -297,15 +297,27 @@ namespace EstiloMestre.Exceptions.ExceptionsBase {
             }
         }
         
-        public static string CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS {
+        public static string CANNOT_HAVE_DAY_OFF_WITH_WORKING_HOURS {
             get {
-                return ResourceManager.GetString("CANNOT_HAVE_BOTH_DAY_OFF_AND_WORKING_HOURS", resourceCulture);
+                return ResourceManager.GetString("CANNOT_HAVE_DAY_OFF_WITH_WORKING_HOURS", resourceCulture);
             }
         }
         
         public static string WORKING_HOURS_OVERLAP {
             get {
                 return ResourceManager.GetString("WORKING_HOURS_OVERLAP", resourceCulture);
+            }
+        }
+        
+        public static string WORKING_HOUR_OVERRIDE_DATE_REQUIRED {
+            get {
+                return ResourceManager.GetString("WORKING_HOUR_OVERRIDE_DATE_REQUIRED", resourceCulture);
+            }
+        }
+        
+        public static string DATE_IN_THE_PAST {
+            get {
+                return ResourceManager.GetString("DATE_IN_THE_PAST", resourceCulture);
             }
         }
     }

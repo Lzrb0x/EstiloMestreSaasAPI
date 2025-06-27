@@ -52,7 +52,7 @@ public class OwnerOrEmployeeByBarbershopFilter(
 }
 
 //TODO: aqui a uma vulnerabilidade:
-// se o dono acessar esse autorize, ele terá acesso a funcionarios de outras barbearias,
+// se o dono acessar esse authorize, ele terá acesso a funcionarios de outras barbearias,
 // podera cadastrar horas de trabalho, serviços etc...
 // + Isso deve ser corrigido, talvez no filtro de autorização, verificando se aquele funcionario pertence
 // a barbearia do dono.

@@ -26,13 +26,12 @@ public class BarbershopRepository(EstiloMestreDbContext dbContext) : IBarbershop
 
     public async Task<bool> UserIsOwnerOrEmployee(long userId, long barbershopId, long employeeId)
     {
-        return await dbContext.Barbershops.Include(b => b.Owner)
-            .Include(b => b.Employees)
+        return await dbContext.Barbershops
             .AsNoTracking()
+            .Where(b => b.Id == barbershopId && b.Active == true)
             .AnyAsync(b =>
-                b.Id == barbershopId
-                && b.Active == true
-                && (b.Owner.UserId == userId && b.Owner.Active == true
-                    || b.Employees.Any(e => e.UserId == userId && e.Id == employeeId && e.Active == true)));
+                b.Owner.UserId == userId && b.Owner.Active == true &&
+                b.Employees.Any(e => e.Id == employeeId && e.Active == true)
+                || b.Employees.Any(e => e.UserId == userId && e.Id == employeeId && e.Active == true));
     }
 }

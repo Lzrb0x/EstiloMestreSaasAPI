@@ -27,9 +27,9 @@ public class SetWorkingHourOverrideUseCase(
         var existingWorkingHourOverride = await workingHourOverrideRepository.GetByEmployeeId(employeeId);
 
         ValidateOverride(newWoerkingHourOverride, existingWorkingHourOverride);
-        
+
         newWoerkingHourOverride.EmployeeId = employeeId;
-        
+
         await workingHourOverrideRepository.Add(newWoerkingHourOverride);
         await unitOfWork.Commit();
     }

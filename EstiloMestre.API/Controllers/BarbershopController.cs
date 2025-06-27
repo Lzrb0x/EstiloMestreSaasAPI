@@ -115,7 +115,7 @@ public class BarbershopController : EstiloMestreBaseController
         return NoContent();
     }
     
-    //[OwnerOrEmployeeByBarbershop]
+    [OwnerOrEmployeeByBarbershop]
     [HttpPost]
     [Route("{barbershopId:long}/employees/{employeeId:long}/override-working-hours")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

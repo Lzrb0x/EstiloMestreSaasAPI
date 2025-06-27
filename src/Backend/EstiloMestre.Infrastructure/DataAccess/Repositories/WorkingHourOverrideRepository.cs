@@ -13,7 +13,7 @@ public class WorkingHourOverrideRepository(EstiloMestreDbContext dbContext) : IW
 
     public async Task<List<EmployeeWorkingHourOverride>> GetByEmployeeId(long employeeId)
     {
-        return await dbContext.EmployeeWorkingHourOverrides
-            .Where(wh => wh.EmployeeId == employeeId).ToListAsync();
+        return await dbContext.EmployeeWorkingHourOverrides.AsNoTracking().Where(wh => wh.EmployeeId == employeeId)
+            .ToListAsync();
     }
 }

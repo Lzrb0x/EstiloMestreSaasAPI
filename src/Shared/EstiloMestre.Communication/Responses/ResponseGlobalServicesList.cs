@@ -1,6 +1,8 @@
+using EstiloMestre.Communication.DTOs;
+
 namespace EstiloMestre.Communication.Responses;
 
 public class ResponseGlobalServicesList
 {
-    public IList<ResponseGlobalService> GlobalServices { get; set; }
+    public IList<GlobalServiceDto> GlobalServices { get; set; }
 }

@@ -1,4 +1,5 @@
 using EstiloMestre.Application.Services.AutoMapper;
+using EstiloMestre.Application.Services.GetEmployeeWorkingBlocks;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHourOverride.Set;
@@ -6,6 +7,7 @@ using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.Slots;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
@@ -27,7 +29,7 @@ public static class DependencyInjectionExtension
     {
         AddUseCases(services);
         AddAutoMapper(services);
-        AddHandlers(services);
+        AddHelpers(services);
     }
 
     private static void AddUseCases(IServiceCollection services)
@@ -48,11 +50,13 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICompletePartialUserProfileUseCase, CompletePartialUserProfileUseCase>();
         services.AddScoped<ISetWorkingHourUseCase, SetWorkingHourUseCase>();
         services.AddScoped<ISetWorkingHourOverrideUseCase, SetWorkingHourOverrideUseCase>();
+        services.AddScoped<IGetEmployeeSlotsUseCase, GetEmployeeSlotsUseCase>();
     }
 
-    private static void AddHandlers(IServiceCollection services)
+    private static void AddHelpers(IServiceCollection services)
     {
         services.AddScoped<EmployeeRegistrationHandler>();
+        services.AddScoped<GetEmployeeWorkingBlocks>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)

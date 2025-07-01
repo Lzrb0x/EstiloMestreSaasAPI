@@ -1,4 +1,5 @@
 using AutoMapper;
+using EstiloMestre.Communication.DTOs;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories.Service;
 
@@ -13,7 +14,7 @@ public class GetAllGlobalServicesUseCase(IServiceRepository serviceRepository, I
 
         return new ResponseGlobalServicesList
         {
-            GlobalServices = services.Select(service => mapper.Map<ResponseGlobalService>(service)).ToList()
+            GlobalServices = services.Select(service => mapper.Map<GlobalServiceDto>(service)).ToList()
         };
     }
 }

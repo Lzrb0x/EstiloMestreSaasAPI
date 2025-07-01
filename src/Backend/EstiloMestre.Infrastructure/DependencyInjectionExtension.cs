@@ -2,6 +2,7 @@ using System.Reflection;
 using EstiloMestre.Domain.Repositories;
 using EstiloMestre.Domain.Repositories.Barbershop;
 using EstiloMestre.Domain.Repositories.BarbershopService;
+using EstiloMestre.Domain.Repositories.Booking;
 using EstiloMestre.Domain.Repositories.Employee;
 using EstiloMestre.Domain.Repositories.Employee.BusinessHour;
 using EstiloMestre.Domain.Repositories.Owner;
@@ -51,6 +52,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IServiceEmployeeRepository, ServiceEmployeeRepository>();
         services.AddScoped<IWorkingHourRepository, WorkingHourRepository>();
         services.AddScoped<IWorkingHourOverrideRepository, WorkingHourOverrideRepository>();
+        services.AddScoped<IBookingRepository, BookingRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration config)

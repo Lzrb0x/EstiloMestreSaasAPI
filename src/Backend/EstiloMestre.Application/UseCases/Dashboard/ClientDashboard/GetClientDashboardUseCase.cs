@@ -1,4 +1,5 @@
 using AutoMapper;
+using EstiloMestre.Communication.DTOs;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Repositories.Barbershop;
@@ -16,7 +17,7 @@ public class GetClientDashboardUseCase(
 
         return new ResponseBarbershopJson
         {
-            Barbershops = mapper.Map<List<ResponseShortBarbershopJson>>(barbershops)
+            Barbershops = mapper.Map<List<ShortBarbershopDto>>(barbershops)
         };
     }
 }

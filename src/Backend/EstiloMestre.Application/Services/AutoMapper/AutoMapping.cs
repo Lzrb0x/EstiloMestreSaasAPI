@@ -1,4 +1,5 @@
 using AutoMapper;
+using EstiloMestre.Communication.DTOs;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Entities;
@@ -34,14 +35,14 @@ public class AutoMapping : Profile
         CreateMap<Barbershop, ResponseRegisteredBarbershopJson>();
         CreateMap<Employee, ResponseRegisteredEmployeeJson>();
         CreateMap<Service, ResponseRegisteredServiceJson>();
-        CreateMap<BarbershopService, ResponseRegisteredBarbershopServiceJson>()
+        CreateMap<BarbershopService, BarbershopServiceDto>()
             .ForMember(dest => dest.DescriptionOverride,
                 opt => opt.MapFrom(src => src.DescriptionOverride ?? string.Empty))
             .ForMember(dest => dest.BarbershopServiceId, opt => opt.MapFrom(src => src.Id));
         CreateMap<Owner, ResponseRegisteredOwnerJson>();
         CreateMap<ServiceEmployee, ResponseRegisteredServiceEmployeeJson>();
-        CreateMap<Service, ResponseGlobalService>();
-        CreateMap<Barbershop, ResponseShortBarbershopJson>()
+        CreateMap<Service, GlobalServiceDto>();
+        CreateMap<Barbershop, ShortBarbershopDto>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.BarbershopName))
             .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address));
     }

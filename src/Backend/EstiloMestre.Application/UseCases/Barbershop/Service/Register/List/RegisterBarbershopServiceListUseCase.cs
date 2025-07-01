@@ -1,4 +1,5 @@
 using AutoMapper;
+using EstiloMestre.Communication.DTOs;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Entities;
@@ -61,7 +62,7 @@ public class RegisterBarbershopServiceListUseCase(
 
         return new ResponseRegisteredBarbershopServiceListJson
         {
-            BarbershopServices = mapper.Map<List<ResponseRegisteredBarbershopServiceJson>>(barbershopServices)
+            BarbershopServices = mapper.Map<List<BarbershopServiceDto>>(barbershopServices)
         };
     }
     

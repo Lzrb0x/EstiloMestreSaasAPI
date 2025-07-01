@@ -1,6 +1,6 @@
-namespace EstiloMestre.Communication.Responses;
+namespace EstiloMestre.Communication.DTOs;
 
-public class ResponseRegisteredBarbershopServiceJson
+public class BarbershopServiceDto
 {
     public long BarbershopServiceId { get; init; }
     public decimal Price { get; init; }

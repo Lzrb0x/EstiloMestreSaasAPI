@@ -15,4 +15,10 @@ public class WorkingHourRepository(EstiloMestreDbContext dbContext) : IWorkingHo
     {
         return await dbContext.EmployeeWorkingHours.Where(wh => wh.EmployeeId == employeeId).ToListAsync();
     }
+
+    public async Task<IList<EmployeeWorkingHour>> GetByEmployeeIdAndDay(long employeeId, DayOfWeek dayOfWeek)
+    {
+        return await dbContext.EmployeeWorkingHours
+            .Where(wh => wh.EmployeeId == employeeId && wh.DayOfWeek == dayOfWeek).ToListAsync();
+    }
 }

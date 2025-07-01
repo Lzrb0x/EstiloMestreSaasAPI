@@ -6,4 +6,5 @@ public interface IWorkingHourRepository
 {
    Task AddRange(List<EmployeeWorkingHour> employeeWorkingHours);
    Task<List<EmployeeWorkingHour>> GetByEmployeeId(long employeeId);
+   Task<IList<EmployeeWorkingHour>> GetByEmployeeIdAndDay(long employeeId, DayOfWeek dayOfWeek);
 }

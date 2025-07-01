@@ -19,14 +19,11 @@ public class SetWorkingHourOverrideUseCase(
     {
         ValidateRequest(request);
 
-        if (!await employeeRepository.ExistEmployeeById(employeeId))
-            throw new NotFoundException(ResourceMessagesExceptions.EMPLOYEE_NOT_FOUND);
-
         var newWoerkingHourOverride = mapper.Map<EmployeeWorkingHourOverride>(request);
 
-        var existingWorkingHourOverride = await workingHourOverrideRepository.GetByEmployeeId(employeeId);
+        var existingWorkingHourOverrideByEmployee = await workingHourOverrideRepository.GetByEmployeeId(employeeId);
 
-        ValidateOverride(newWoerkingHourOverride, existingWorkingHourOverride);
+        ValidateOverride(newWoerkingHourOverride, existingWorkingHourOverrideByEmployee);
 
         newWoerkingHourOverride.EmployeeId = employeeId;
 
@@ -35,10 +32,10 @@ public class SetWorkingHourOverrideUseCase(
     }
 
     private static void ValidateOverride(EmployeeWorkingHourOverride newWorkingHourOverride,
-        List<EmployeeWorkingHourOverride> existingWorkingHourOverride)
+        List<EmployeeWorkingHourOverride> existingWorkingHourOverrideByEmployee)
     {
         var overrideForSameDate =
-            existingWorkingHourOverride.Where(x => x.Date == newWorkingHourOverride.Date).ToList();
+            existingWorkingHourOverrideByEmployee.Where(x => x.Date == newWorkingHourOverride.Date).ToList();
 
         if (!overrideForSameDate.Any())
             return;
@@ -62,7 +59,6 @@ public class SetWorkingHourOverrideUseCase(
                         throw new BusinessRuleException(ResourceMessagesExceptions.WORKING_HOURS_OVERLAP);
                     }
                 }
-
                 break;
             }
         }

@@ -33,7 +33,7 @@ public class RegisterUserUseCase(
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
-            Tokens = new ResponseTokensJson
+            Tokens = new TokensDto
             {
                 AccessToken = tokenGenerator.Generate(user.UserIdentifier)
             }

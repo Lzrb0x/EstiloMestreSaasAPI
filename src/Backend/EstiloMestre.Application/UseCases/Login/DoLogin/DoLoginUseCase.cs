@@ -23,7 +23,7 @@ public class DoLoginUseCase(
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
-            Tokens = new ResponseTokensJson { AccessToken = accessTokenGenerator.Generate(user.UserIdentifier) }
+            Tokens = new TokensDto { AccessToken = accessTokenGenerator.Generate(user.UserIdentifier) }
         };
     }
 }

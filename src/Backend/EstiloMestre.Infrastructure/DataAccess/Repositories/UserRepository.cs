@@ -32,7 +32,7 @@ public class UserRepository(EstiloMestreDbContext context) : IUserRepository
         return await context.Users.AsNoTracking()
             .AnyAsync(u => u.UserIdentifier.Equals(userIdentifier) && u.IsComplete);
     }
-
+    
     public async Task<User?> GetUserByPhone(string phone)
     {
         return await context.Users.AsNoTracking()

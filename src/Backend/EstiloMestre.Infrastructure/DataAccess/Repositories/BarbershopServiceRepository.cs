@@ -16,6 +16,13 @@ public class BarbershopServiceRepository(EstiloMestreDbContext dbContext) : IBar
         await dbContext.BarbershopServices.AddAsync(barbershopService);
     }
 
+    public async Task<BarbershopService?> GetById(long barbershopServiceId)
+    {
+        return await dbContext.BarbershopServices
+            .AsNoTracking()
+            .FirstOrDefaultAsync(bs => bs.Id == barbershopServiceId && bs.Active);
+    }
+
     public async Task<HashSet<long>> GetGlobalServicesAlreadyRegisteredOnBarbershop(long barbershopId)
     {
         return await dbContext.BarbershopServices.AsNoTracking()

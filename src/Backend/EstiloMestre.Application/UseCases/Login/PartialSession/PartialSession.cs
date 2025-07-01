@@ -41,7 +41,7 @@ public class PartialSession(
         return new ResponseRegisteredUserJson
         {
             Name = user.Name,
-            Tokens = new ResponseTokensJson
+            Tokens = new TokensDto
             {
                 AccessToken = tokenGenerator.Generate(user.UserIdentifier)
             }

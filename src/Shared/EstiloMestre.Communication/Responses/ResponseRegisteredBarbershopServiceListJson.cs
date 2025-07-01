@@ -1,6 +1,8 @@
+using EstiloMestre.Communication.DTOs;
+
 namespace EstiloMestre.Communication.Responses;
 
 public class ResponseRegisteredBarbershopServiceListJson
 {
-    public IList<ResponseRegisteredBarbershopServiceJson> BarbershopServices { get; set; } = [];
+    public IList<BarbershopServiceDto> BarbershopServices { get; set; } = [];
 }

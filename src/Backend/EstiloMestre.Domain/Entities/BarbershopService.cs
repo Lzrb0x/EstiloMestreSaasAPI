@@ -6,7 +6,7 @@ namespace EstiloMestre.Domain.Entities;
 public class BarbershopService : EntityBase
 {
     public decimal Price { get; set; }
-    public TimeOnly Duration { get; set; }
+    public TimeSpan Duration { get; set; }
     public string? DescriptionOverride { get; set; } = string.Empty;
     public long BarbershopId { get; set; }
     public long ServiceId { get; set; }

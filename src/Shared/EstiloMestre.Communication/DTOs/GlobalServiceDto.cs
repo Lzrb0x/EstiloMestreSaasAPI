@@ -1,6 +1,6 @@
-namespace EstiloMestre.Communication.Responses;
+namespace EstiloMestre.Communication.DTOs;
 
-public class ResponseGlobalService
+public class GlobalServiceDto
 {
     public long Id { get; set; }
     public string Name { get; set; } = string.Empty;

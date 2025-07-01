@@ -1,6 +1,6 @@
-namespace EstiloMestre.Communication.Responses;
+namespace EstiloMestre.Communication.DTOs;
 
-public class ResponseShortBarbershopJson
+public class ShortBarbershopDto
 {
     public long Id { get; set; }
     public string Name { get; set; } = string.Empty;

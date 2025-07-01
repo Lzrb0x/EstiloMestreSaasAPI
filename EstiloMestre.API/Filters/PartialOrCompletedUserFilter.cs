@@ -8,11 +8,10 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EstiloMestre.API.Filters;
 
-public class AuthenticatedCompletedUserFilter(
+public class PartialOrCompletedUserFilter(
     IAccessTokenValidator tokenValidator,
     IUserRepository userRepository,
-    ITokenProvider tokenProvider
-) : IAsyncAuthorizationFilter
+    ITokenProvider tokenProvider) : IAsyncAuthorizationFilter
 {
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
@@ -24,9 +23,6 @@ public class AuthenticatedCompletedUserFilter(
             var userExist = await userRepository.ExistActiveUserWithIdentifier(userIdentifier);
             if (userExist == null)
                 throw new EstiloMestreException(ResourceMessagesExceptions.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE);
-
-            if (!await userRepository.UserProfileIsCompleteByUserIdentifier(userIdentifier))
-                throw new EstiloMestreException(ResourceMessagesExceptions.USER_PROFILE_NOT_COMPLETED);
         }
         catch (SecurityTokenExpiredException)
         {

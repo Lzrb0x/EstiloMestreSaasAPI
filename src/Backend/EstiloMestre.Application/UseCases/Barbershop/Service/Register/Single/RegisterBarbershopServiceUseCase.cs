@@ -1,4 +1,5 @@
 using AutoMapper;
+using EstiloMestre.Communication.DTOs;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using EstiloMestre.Domain.Entities;
@@ -16,7 +17,7 @@ public class RegisterBarbershopServiceUseCase(
     IMapper mapper
 ) : IRegisterBarbershopServiceUseCase
 {
-    public async Task<ResponseRegisteredBarbershopServiceJson> Execute(
+    public async Task<BarbershopServiceDto> Execute(
         RequestBarbershopServiceJson request, long barbershopId
     )
     {
@@ -42,7 +43,7 @@ public class RegisterBarbershopServiceUseCase(
         await unitOfWork.Commit();
 
 
-        return mapper.Map<ResponseRegisteredBarbershopServiceJson>(barbershopService);
+        return mapper.Map<BarbershopServiceDto>(barbershopService);
     }
 
     private static void ValidadeRequest(RequestBarbershopServiceJson request)

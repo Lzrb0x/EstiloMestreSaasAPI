@@ -1,5 +1,3 @@
-using EstiloMestre.Domain.Entities;
-
 namespace EstiloMestre.Communication.Requests;
 
 public class RequestWorkingHourOverrideJson

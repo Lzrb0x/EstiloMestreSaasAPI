@@ -8,6 +8,7 @@ using EstiloMestre.Exceptions.ExceptionsBase;
 
 namespace EstiloMestre.Application.UseCases.Barbershop.Employee.Slots;
 
+
 public class GetEmployeeSlotsUseCase(
     GetEmployeeWorkingBlocks workingBlockHelper,
     IBookingRepository bookingRepository,
@@ -47,7 +48,11 @@ public class GetEmployeeSlotsUseCase(
         if (service == null)
             throw new BusinessRuleException(ResourceMessagesExceptions.SERVICE_WITH_ID_NOT_FOUND);
 
-        var slots = CalculateAvailableSlots(sortedTimeline, service.Duration);
+        var filterTime = (date == DateOnly.FromDateTime(DateTime.Today)) // Compara com a data local
+            ? TimeOnly.FromDateTime(DateTime.Now) // Usa a hora local
+            : TimeOnly.MinValue;
+
+        var slots = CalculateAvailableSlots(sortedTimeline, service.Duration, filterTime);
 
         return new ResponseEmployeeSlotsJson
         {
@@ -57,7 +62,7 @@ public class GetEmployeeSlotsUseCase(
     }
 
     private static List<SlotDto> CalculateAvailableSlots(List<TimelineEvent> timeline,
-        TimeSpan serviceDuration)
+        TimeSpan serviceDuration, TimeOnly filterTime)
     {
         var availableSlots = new List<SlotDto>();
 
@@ -80,10 +85,11 @@ public class GetEmployeeSlotsUseCase(
                     var potentialSlotTime = windowStartTime.Value;
                     while (potentialSlotTime.Add(serviceDuration) <= windowEndTime)
                     {
-                        availableSlots.Add(new SlotDto
+                        if (potentialSlotTime >= filterTime)
                         {
-                            Time = potentialSlotTime
-                        });
+                            availableSlots.Add(new SlotDto { Time = potentialSlotTime });
+                        }
+
                         potentialSlotTime = potentialSlotTime.AddMinutes(slotStepMinutes);
                     }
                 }

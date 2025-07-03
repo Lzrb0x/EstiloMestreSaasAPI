@@ -12,5 +12,4 @@ public class Employee : EntityBase
     public IList<EmployeeWorkingHour> EmployeeWorkingHours { get; set; } = [];
     public IList<EmployeeWorkingHourOverride> EmployeeWorkingHourOverrides { get; set; } = [];
     public IList<Booking> Bookings { get; set; } = [];
-    
 }

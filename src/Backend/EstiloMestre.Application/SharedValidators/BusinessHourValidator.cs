@@ -30,7 +30,6 @@ public class BusinessHourValidator<T>(
         context.MessageFormatter.AppendArgument("ErrorMessage",
             ResourceMessagesExceptions.INVALID_WORKING_HOUR_CONFIGURATION);
         return false;
-
     }
 
     public override string Name => nameof(BusinessHourValidator<T>);

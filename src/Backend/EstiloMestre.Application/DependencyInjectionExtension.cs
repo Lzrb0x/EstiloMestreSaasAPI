@@ -11,6 +11,7 @@ using EstiloMestre.Application.UseCases.Barbershop.Employee.Slots;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
+using EstiloMestre.Application.UseCases.Booking.Create;
 using EstiloMestre.Application.UseCases.Dashboard.ClientDashboard;
 using EstiloMestre.Application.UseCases.Login.DoLogin;
 using EstiloMestre.Application.UseCases.Login.PartialSession;
@@ -51,6 +52,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<ISetWorkingHourUseCase, SetWorkingHourUseCase>();
         services.AddScoped<ISetWorkingHourOverrideUseCase, SetWorkingHourOverrideUseCase>();
         services.AddScoped<IGetEmployeeSlotsUseCase, GetEmployeeSlotsUseCase>();
+        services.AddScoped<ICreateBookingUseCase, CreateBookingUseCase>();
     }
 
     private static void AddHelpers(IServiceCollection services)

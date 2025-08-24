@@ -44,6 +44,29 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+const string webAppCorsPolicy = "WebAppPolicy";
+
+builder.Services.AddCors(options =>
+{
+    // options.AddPolicy(name: webAppCorsPolicy,
+    //     policy =>
+    //     {
+    //         // Permite requisições da sua aplicação web
+    //         policy.WithOrigins("http://localhost:5173")
+    //             .AllowAnyHeader() // Permite qualquer cabeçalho na requisição
+    //             .AllowAnyMethod(); // Permite qualquer método (GET, POST, PUT, DELETE, etc.)
+    //     });
+
+    options.AddPolicy(name: webAppCorsPolicy,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
+
 builder.Services.AddMvc(opt => opt.Filters.Add<ExceptionFilter>());
 
 //DI
@@ -69,9 +92,11 @@ app.UseMiddleware<CultureMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseCors(webAppCorsPolicy);
+
 app.UseRouting();
 
-app.MapControllers(); //pipeline de execução: filtros, autorização, etc
+app.MapControllers();
 
 MigrateDatabase();
 

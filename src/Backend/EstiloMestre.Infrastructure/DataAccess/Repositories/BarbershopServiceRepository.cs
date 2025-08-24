@@ -26,16 +26,24 @@ public class BarbershopServiceRepository(EstiloMestreDbContext dbContext) : IBar
     public async Task<HashSet<long>> GetGlobalServicesAlreadyRegisteredOnBarbershop(long barbershopId)
     {
         return await dbContext.BarbershopServices.AsNoTracking()
-           .Where(bs => bs.BarbershopId == barbershopId && bs.Active)
-           .Select(bs => bs.ServiceId)
-           .ToHashSetAsync();
+            .Where(bs => bs.BarbershopId == barbershopId && bs.Active)
+            .Select(bs => bs.ServiceId)
+            .ToHashSetAsync();
     }
 
     public async Task<HashSet<long>> GetBarbershopServicesIds(long barbershopId)
     {
         return await dbContext.BarbershopServices.AsNoTracking()
-           .Where(bs => bs.BarbershopId == barbershopId)
-           .Select(bs => bs.Id)
-           .ToHashSetAsync();
+            .Where(bs => bs.BarbershopId == barbershopId)
+            .Select(bs => bs.Id)
+            .ToHashSetAsync();
+    }
+
+    public async Task<List<BarbershopService>> GetBarbershopServicesByBarbershop(long barbershopId)
+    {
+        return await dbContext.BarbershopServices
+            .AsNoTracking()
+            .Where(bs => bs.BarbershopId == barbershopId)
+            .ToListAsync();
     }
 }

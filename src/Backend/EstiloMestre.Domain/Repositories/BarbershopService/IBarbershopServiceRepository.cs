@@ -11,4 +11,5 @@ public interface IBarbershopServiceRepository
     Task<HashSet<long>> GetGlobalServicesAlreadyRegisteredOnBarbershop(long barbershopId);
 
     Task<HashSet<long>> GetBarbershopServicesIds(long barbershopId);
+    Task<List<Entities.BarbershopService>> GetBarbershopServicesByBarbershop(long barbershopId);
 }

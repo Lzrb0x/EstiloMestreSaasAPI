@@ -14,15 +14,15 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
     public async Task<HashSet<long>> GetRegisteredBarbershopServicesByEmployeeId(long employeeId)
     {
         return await dbContext.Employees.Include(e => e.ServicesEmployee)
-           .Where(e => e.Id == employeeId && e.Active == true)
-           .SelectMany(e => e.ServicesEmployee.Select(se => se.BarbershopServiceId))
-           .ToHashSetAsync();
+            .Where(e => e.Id == employeeId && e.Active == true)
+            .SelectMany(e => e.ServicesEmployee.Select(se => se.BarbershopServiceId))
+            .ToHashSetAsync();
     }
 
     public async Task<Employee?> GetEmployeeById(long employeeId)
     {
         return await dbContext.Employees.AsNoTracking()
-           .FirstOrDefaultAsync(e => e.Id == employeeId && e.Active == true);
+            .FirstOrDefaultAsync(e => e.Id == employeeId && e.Active == true);
     }
 
     public async Task<bool> ExistEmployeeById(long employeeId)
@@ -35,6 +35,13 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
     public async Task<Employee?> GetEmployeeByUserId(long userId)
     {
         return await dbContext.Employees.AsNoTracking()
-           .FirstOrDefaultAsync(e => e.UserId == userId && e.Active == true);
+            .FirstOrDefaultAsync(e => e.UserId == userId && e.Active == true);
+    }
+
+    public async Task<IList<Employee>> GetEmployeesByBarbershopId(long barbershopId)
+    {
+        return await dbContext.Employees.Include(e => e.ServicesEmployee)
+            .Where(e => e.BarberShopId == barbershopId && e.Active == true)
+            .ToListAsync();
     }
 }

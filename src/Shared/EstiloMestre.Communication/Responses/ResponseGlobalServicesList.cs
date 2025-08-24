@@ -4,5 +4,5 @@ namespace EstiloMestre.Communication.Responses;
 
 public class ResponseGlobalServicesList
 {
-    public IList<GlobalServiceDto> GlobalServices { get; set; }
+    public IList<GlobalServiceDto> GlobalServices { get; set; } = [];
 }

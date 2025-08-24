@@ -34,6 +34,7 @@ public class AutoMapping : Profile
     {
         CreateMap<Barbershop, ResponseRegisteredBarbershopJson>();
         CreateMap<Employee, ResponseRegisteredEmployeeJson>();
+        CreateMap<Employee, EmployeeDto>();
         CreateMap<Service, ResponseRegisteredServiceJson>();
         CreateMap<BarbershopService, BarbershopServiceDto>()
             .ForMember(dest => dest.DescriptionOverride,

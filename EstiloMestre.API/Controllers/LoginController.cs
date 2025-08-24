@@ -25,10 +25,10 @@ public class LoginController : EstiloMestreBaseController
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PartialSession(
-        [FromServices] IPartialSession completeUseCase,
+        [FromServices] IPartialSession useCase,
         [FromBody] RequestPartialSessionUserJson request)
     {
-        var userRegistered = await completeUseCase.Execute(request);
+        var userRegistered = await useCase.Execute(request);
 
         return Created(string.Empty, userRegistered);
     }

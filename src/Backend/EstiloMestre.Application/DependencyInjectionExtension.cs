@@ -3,12 +3,14 @@ using EstiloMestre.Application.Services.GetEmployeeWorkingBlocks;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHourOverride.Set;
+using EstiloMestre.Application.UseCases.Barbershop.Employee.Get.GetByService;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.OwnerAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Register.UserAsEmployee;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.ServiceEmployee.Register;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Slots;
 using EstiloMestre.Application.UseCases.Barbershop.Register;
+using EstiloMestre.Application.UseCases.Barbershop.Service.Get;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.List;
 using EstiloMestre.Application.UseCases.Barbershop.Service.Register.Single;
 using EstiloMestre.Application.UseCases.Booking.Create;
@@ -53,6 +55,8 @@ public static class DependencyInjectionExtension
         services.AddScoped<ISetWorkingHourOverrideUseCase, SetWorkingHourOverrideUseCase>();
         services.AddScoped<IGetEmployeeSlotsUseCase, GetEmployeeSlotsUseCase>();
         services.AddScoped<ICreateBookingUseCase, CreateBookingUseCase>();
+        services.AddScoped<IGetBarbershopServicesUseCase, GetBarbershopServicesUseCase>();
+        services.AddScoped<IGetEmployeesByService, GetEmployeesByService>();
     }
 
     private static void AddHelpers(IServiceCollection services)

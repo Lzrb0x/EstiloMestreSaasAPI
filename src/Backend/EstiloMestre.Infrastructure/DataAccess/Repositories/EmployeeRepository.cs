@@ -40,8 +40,11 @@ public class EmployeeRepository(EstiloMestreDbContext dbContext) : IEmployeeRepo
 
     public async Task<IList<Employee>> GetEmployeesByBarbershopId(long barbershopId)
     {
-        return await dbContext.Employees.Include(e => e.ServicesEmployee)
+        return await dbContext.Employees
+            .Include(e => e.ServicesEmployee)
+            .Include(e => e.User)
             .Where(e => e.BarberShopId == barbershopId && e.Active == true)
+            .AsNoTracking()
             .ToListAsync();
     }
 }

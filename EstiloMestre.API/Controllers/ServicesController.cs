@@ -10,7 +10,7 @@ namespace EstiloMestre.API.Controllers;
 
 public class ServicesController : EstiloMestreBaseController
 {
-    // After we need to implement an attribute to validate if the user is an admin 
+    // After we need to implement an attribute to validate if the user is an ADMIN MASTER
 
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredServiceJson), StatusCodes.Status201Created)]

@@ -1,5 +1,6 @@
 using EstiloMestre.API.Attributes;
 using EstiloMestre.API.Controllers.BaseController;
+using EstiloMestre.Application.UseCases.Barbershop.BarbershopDetails.Get;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHourOverride.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.Get.GetByService;
@@ -15,11 +16,66 @@ using EstiloMestre.Communication.DTOs;
 using EstiloMestre.Communication.Requests;
 using EstiloMestre.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EstiloMestre.API.Controllers;
 
 public class BarbershopController : EstiloMestreBaseController
 {
+    [HttpGet]
+    [Route("{barbershopId:long}/details")]
+    [ProducesResponseType(typeof(ResponseBarbershopDetailsJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetBarbershopDetails(
+        [FromRoute] long barbershopId,
+        [FromServices] IGetBarbershopDetailsUseCase useCase
+    )
+    {
+        var response = await useCase.Execute(barbershopId);
+        return Ok(response);
+    }
+    
+    [HttpGet]
+    [Route("{barbershopId:long}/employees/{employeeId:long}/available-slots")]
+    [ProducesResponseType(typeof(ResponseEmployeeSlotsJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetEmployeeAvailableSlots(
+        [FromRoute] long employeeId,
+        [FromQuery, BindRequired] DateOnly date, [FromQuery, BindRequired] long barbershopServiceId,
+        [FromServices] IGetEmployeeSlotsUseCase useCase
+    )
+    {
+        var response = await useCase.Execute(employeeId, date, barbershopServiceId);
+        return Ok(response);
+    }
+    
+    // [PartialOrCompletedUser]
+    [HttpGet]
+    [Route("{barbershopId:long}/barbershop-services")]
+    [ProducesResponseType(typeof(ResponseBarbershopServices), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetBarbershopServices(
+        [FromRoute] long barbershopId, [FromServices] IGetBarbershopServicesUseCase useCase
+    )
+    {
+        var response = await useCase.Execute(barbershopId);
+        return Ok(response);
+    }
+    
+    [HttpGet]
+    [Route("{barbershopId:long}/employee-by-service")]
+    [ProducesResponseType(typeof(ResponseEmployeesJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetEmployeeByService(
+        [FromRoute] long barbershopId,
+        [FromQuery] long barbershopServiceId,
+        [FromServices] IGetEmployeesByService useCase
+    )
+    {
+        var response = await useCase.Execute(barbershopId, barbershopServiceId);
+        return Ok(response);
+    }
+    
     [Owner]
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]
@@ -73,34 +129,6 @@ public class BarbershopController : EstiloMestreBaseController
     {
         var response = await useCase.Execute(request, barbershopId);
         return Created(string.Empty, response);
-    }
-
-    // [PartialOrCompletedUser]
-    [HttpGet]
-    [Route("{barbershopId:long}/barbershop-services")]
-    [ProducesResponseType(typeof(ResponseBarbershopServices), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetBarbershopServices(
-        [FromRoute] long barbershopId, [FromServices] IGetBarbershopServicesUseCase useCase
-    )
-    {
-        var response = await useCase.Execute(barbershopId);
-        return Ok(response);
-    }
-
-
-    [HttpGet]
-    [Route("{barbershopId:long}/employee-by-service")]
-    [ProducesResponseType(typeof(ResponseEmployeesJson), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetEmployeeByService(
-        [FromRoute] long barbershopId,
-        [FromQuery] long barbershopServiceId,
-        [FromServices] IGetEmployeesByService useCase
-    )
-    {
-        var response = await useCase.Execute(barbershopId, barbershopServiceId);
-        return Ok(response);
     }
 
     [OwnerOrEmployeeByBarbershop]
@@ -159,20 +187,5 @@ public class BarbershopController : EstiloMestreBaseController
     {
         await useCase.Execute(request, employeeId);
         return NoContent();
-    }
-
-    [PartialOrCompletedUser]
-    [HttpGet]
-    [Route("{barbershopId:long}/employees/{employeeId:long}/available-slots")]
-    [ProducesResponseType(typeof(ResponseEmployeeSlotsJson), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetEmployeeAvailableSlots(
-        [FromRoute] long employeeId,
-        [FromQuery] DateOnly date, [FromQuery] long barbershopServiceId,
-        [FromServices] IGetEmployeeSlotsUseCase useCase
-    )
-    {
-        var response = await useCase.Execute(employeeId, date, barbershopServiceId);
-        return Ok(response);
     }
 }

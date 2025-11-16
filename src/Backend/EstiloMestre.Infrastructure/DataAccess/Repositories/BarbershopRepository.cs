@@ -23,7 +23,7 @@ public class BarbershopRepository(EstiloMestreDbContext dbContext) : IBarbershop
             .AnyAsync(b =>
                 b.Id == barbershopId && b.Active == true && b.Owner.UserId == userId && b.Owner.Active == true);
     }
-    
+
 
     public async Task<bool> UserIsOwnerOrEmployee(long userId, long barbershopId, long employeeId)
     {
@@ -34,5 +34,16 @@ public class BarbershopRepository(EstiloMestreDbContext dbContext) : IBarbershop
                 b.Owner.UserId == userId && b.Owner.Active == true &&
                 b.Employees.Any(e => e.Id == employeeId && e.Active == true)
                 || b.Employees.Any(e => e.UserId == userId && e.Id == employeeId && e.Active == true));
+    }
+
+    public async Task<Barbershop?> GetBarbershopDetails(long barbershopId)
+    {
+        return await dbContext.Barbershops
+            .Include(e => e.Employees)
+            .ThenInclude(e => e.User)
+            .Include(e => e.Services)
+            .Include(e => e.Bookings)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == barbershopId && e.Active == true);
     }
 }

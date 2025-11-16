@@ -7,4 +7,5 @@ public interface IBarbershopRepository
     Task<IList<Entities.Barbershop>> GetForDashboard();
     Task<bool> UserIsBarbershopOwner(long userId, long barbershopId);
     Task<bool> UserIsOwnerOrEmployee(long userId, long barbershopId, long employeeId);
+    Task<Entities.Barbershop?> GetBarbershopDetails(long barbershopId);
 }

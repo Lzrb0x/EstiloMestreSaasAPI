@@ -6,6 +6,7 @@ namespace EstiloMestre.Domain.Entities;
 public class Employee : EntityBase
 {
     public long UserId { get; set; }
+    public User User { get; set; } = null!;
     public long BarberShopId { get; set; }
     public Barbershop BarberShop { get; set; } = null!;
     public IList<ServiceEmployee> ServicesEmployee { get; set; } = [];

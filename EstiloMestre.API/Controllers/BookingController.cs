@@ -9,7 +9,7 @@ namespace EstiloMestre.API.Controllers;
 
 public class BookingController : EstiloMestreBaseController
 {
-    [PartialOrCompletedUser]
+    // [PartialOrCompletedUser]
     [HttpPost]
     [ProducesResponseType(typeof(ResponseBookingJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]

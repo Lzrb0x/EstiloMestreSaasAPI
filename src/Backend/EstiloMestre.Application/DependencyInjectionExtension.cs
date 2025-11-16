@@ -1,5 +1,6 @@
 using EstiloMestre.Application.Services.AutoMapper;
 using EstiloMestre.Application.Services.GetEmployeeWorkingBlocks;
+using EstiloMestre.Application.UseCases.Barbershop.BarbershopDetails.Get;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHour.Set;
 using EstiloMestre.Application.UseCases.Barbershop.Employee.BusinessHour.WorkingHourOverride.Set;
@@ -57,6 +58,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<ICreateBookingUseCase, CreateBookingUseCase>();
         services.AddScoped<IGetBarbershopServicesUseCase, GetBarbershopServicesUseCase>();
         services.AddScoped<IGetEmployeesByService, GetEmployeesByService>();
+        services.AddScoped<IGetBarbershopDetailsUseCase, GetBarbershopDetailsUseCase>();
     }
 
     private static void AddHelpers(IServiceCollection services)

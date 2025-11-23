@@ -23,6 +23,7 @@ public class GetBarbershopDetailsUseCase(IBarbershopRepository barbershopReposit
             {
                 Employees = barbershopDetails.Employees.Select(e => new EmployeeDto
                 {
+                    Id = e.Id,
                     UserId = e.UserId,
                     Name = e.User.Name,
                     BarberShopId = e.BarberShopId

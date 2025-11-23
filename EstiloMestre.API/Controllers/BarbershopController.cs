@@ -34,7 +34,7 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(barbershopId);
         return Ok(response);
     }
-    
+
     [HttpGet]
     [Route("{barbershopId:long}/employees/{employeeId:long}/available-slots")]
     [ProducesResponseType(typeof(ResponseEmployeeSlotsJson), StatusCodes.Status200OK)]
@@ -48,7 +48,7 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(employeeId, date, barbershopServiceId);
         return Ok(response);
     }
-    
+
     // [PartialOrCompletedUser]
     [HttpGet]
     [Route("{barbershopId:long}/barbershop-services")]
@@ -61,7 +61,7 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(barbershopId);
         return Ok(response);
     }
-    
+
     [HttpGet]
     [Route("{barbershopId:long}/employee-by-service")]
     [ProducesResponseType(typeof(ResponseEmployeesJson), StatusCodes.Status200OK)]
@@ -75,7 +75,7 @@ public class BarbershopController : EstiloMestreBaseController
         var response = await useCase.Execute(barbershopId, barbershopServiceId);
         return Ok(response);
     }
-    
+
     [Owner]
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredBarbershopJson), StatusCodes.Status201Created)]

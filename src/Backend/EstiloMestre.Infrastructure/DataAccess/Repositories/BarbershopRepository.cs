@@ -13,7 +13,7 @@ public class BarbershopRepository(EstiloMestreDbContext dbContext) : IBarbershop
 
     public async Task<IList<Barbershop>> GetForDashboard()
     {
-        return await dbContext.Barbershops.AsNoTracking().OrderByDescending(x => x.Id).Take(3).ToListAsync();
+        return await dbContext.Barbershops.AsNoTracking().Take(3).ToListAsync();
     }
 
     public async Task<bool> UserIsBarbershopOwner(long userId, long barbershopId)

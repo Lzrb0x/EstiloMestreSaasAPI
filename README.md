@@ -11,7 +11,7 @@ O objetivo é centralizar todas as operações do dia a dia de uma barbearia em 
 * **Gestão Completa:** Cadastre sua barbearia, gerencie seus dados e adicione múltiplos funcionários.
 * **Catálogo de Serviços Personalizável:** Escolha a partir de uma lista de serviços globais e defina preços e durações específicas para o seu estabelecimento.
 * **Gerenciamento de Equipe:** Associe funcionários aos serviços que eles são qualificados para realizar, otimizando a agenda.
-* **Agendamentos Inteligentes (Em Desenvolvimento):** Um sistema completo para que clientes possam agendar horários com seus profissionais preferidos, incluindo diferentes preços e tempo de serviço para cada funcionário
+* **Agendamentos Inteligentes:** Um sistema completo para que clientes possam agendar horários com seus profissionais preferidos, incluindo diferentes preços e tempo de serviço para cada funcionário
 * **Autenticação Segura:** Sistema de login e permissões baseado em JWT para garantir que donos, funcionários e clientes acessem apenas o que lhes é permitido.
 
 ## 🚀 Tecnologias e Arquitetura
